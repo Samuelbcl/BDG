@@ -1,11 +1,12 @@
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, SPACING, FONT_SIZES } from '../../src/constants/theme';
 import { SCHEDULE } from '../../src/constants/data';
+import Header from '../../src/components/Header';
 
 export default function ProgramScreen() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Header />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={styles.title}>Programme</Text>
@@ -33,7 +34,7 @@ export default function ProgramScreen() {
           </View>
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

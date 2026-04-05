@@ -12,7 +12,17 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: COLORS.bg },
           animation: 'fade',
         }}
-      />
+      >
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="notifications"
+          options={{ animation: 'slide_from_right' }}
+        />
+        <Stack.Screen
+          name="search"
+          options={{ animation: 'slide_from_bottom' }}
+        />
+      </Stack>
     </>
   );
 }

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Linking } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONT_SIZES } from '../../src/constants/theme';
+import Header from '../../src/components/Header';
 
 const SITE_URL = 'https://lesbruleursdegommes.com/';
 
@@ -12,7 +12,8 @@ export default function InfoScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Header />
       <View style={styles.content}>
         <View style={styles.iconBox}>
           <Ionicons name="information-circle" size={48} color={COLORS.zoneCircuit} />
@@ -31,7 +32,7 @@ export default function InfoScreen() {
         </TouchableOpacity>
         <Text style={styles.url}>{SITE_URL}</Text>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

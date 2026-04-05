@@ -1,11 +1,12 @@
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, SPACING, FONT_SIZES } from '../../src/constants/theme';
 import CircuitMap from '../../src/components/CircuitMap';
+import Header from '../../src/components/Header';
 
 export default function MapScreen() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Header />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={styles.title}>Carte du Circuit</Text>
@@ -15,7 +16,7 @@ export default function MapScreen() {
 
         <CircuitMap />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

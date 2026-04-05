@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONT_SIZES, EVENT } from '../../src/constants/theme';
+import Header from '../../src/components/Header';
 
 const EVENT_DATE = new Date('2026-04-05T07:30:00+02:00');
 
@@ -83,9 +83,10 @@ export default function ActusScreen() {
   const countdown = useCountdown(EVENT_DATE);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Header />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        {/* Header */}
+        {/* Edition label */}
         <View style={styles.header}>
           <Text style={styles.edition}>{EVENT.edition}</Text>
           <Text style={styles.title}>
@@ -167,7 +168,7 @@ export default function ActusScreen() {
           </View>
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Switch, Linking } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONT_SIZES } from '../../src/constants/theme';
+import Header from '../../src/components/Header';
 
 type SubTab = 'compte' | 'partenaire' | 'settings';
 
@@ -162,11 +162,9 @@ export default function SuiteScreen() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Header />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Suite</Text>
-        </View>
 
         {/* Sub-tabs */}
         <View style={styles.tabRow}>
@@ -194,7 +192,7 @@ export default function SuiteScreen() {
         {activeTab === 'partenaire' && <PartenaireTab />}
         {activeTab === 'settings' && <SettingsTab />}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
