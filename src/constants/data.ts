@@ -175,7 +175,7 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
     details: ['Shows tout au long de la journee', 'Riders pros internationaux', 'Zone spectacle'],
     color: COLORS.zoneBapteme,
     mapPosition: { x: 55, y: 10 },
-    coordinates: { latitude: 50.444458, longitude: 5.964203 },
+    coordinates: { latitude: 50.445115, longitude: 5.963667 },
   },
   // === PADDOCKS ===
   {
