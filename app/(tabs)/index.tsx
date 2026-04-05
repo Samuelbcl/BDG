@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: COLORS.primary,
   },
-  fixedLogo: { height: 65, width: 230 },
+  fixedLogo: { height: 59, width: 210 },
 
   // Video hero
   videoContainer: { width: SCREEN_WIDTH, height: VIDEO_HEIGHT, backgroundColor: '#000' },
