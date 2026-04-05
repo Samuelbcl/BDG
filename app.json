@@ -20,6 +20,9 @@
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "L'app utilise votre position pour la carte interactive du circuit.",
         "NSCameraUsageDescription": "L'app utilise la camera pour scanner les QR codes des billets."
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyB_9aJIp41z0G-6x4lHmj8_w0L-1wwvu7w"
       }
     },
     "android": {
@@ -34,7 +37,12 @@
         "CAMERA",
         "VIBRATE",
         "RECEIVE_BOOT_COMPLETED"
-      ]
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB_9aJIp41z0G-6x4lHmj8_w0L-1wwvu7w"
+        }
+      }
     },
     "plugins": [
       "expo-router",
