@@ -2,28 +2,28 @@
 // Light theme - Rouge racing / Blanc / Noir
 
 export const COLORS = {
-  // Core - Light theme
-  bg: '#FFFFFF',
-  surface: '#F5F5F7',
-  card: '#FFFFFF',
-  cardHover: '#F0F0F2',
-  border: '#E5E5EA',
+  // Core - Dark theme
+  bg: '#000000',
+  surface: '#111111',
+  card: '#1A1A1A',
+  cardHover: '#222222',
+  border: '#2A2A2A',
 
   // Brand - Rouge BDG
   primary: '#D91E28',
   primaryLight: '#EF4444',
   primaryDark: '#B91C1C',
-  primaryGlow: 'rgba(217, 30, 40, 0.12)',
+  primaryGlow: 'rgba(217, 30, 40, 0.15)',
 
-  // Accent - Noir racing
-  accent: '#1A1A1A',
-  accentLight: '#333333',
-  accentGlow: 'rgba(26, 26, 26, 0.08)',
+  // Accent
+  accent: '#FFFFFF',
+  accentLight: '#E5E5EA',
+  accentGlow: 'rgba(255, 255, 255, 0.08)',
 
   // Text
-  text: '#111111',
-  textSecondary: '#6B7280',
-  textMuted: '#9CA3AF',
+  text: '#FFFFFF',
+  textSecondary: '#9CA3AF',
+  textMuted: '#6B7280',
 
   // Status
   success: '#16A34A',
@@ -32,9 +32,9 @@ export const COLORS = {
   info: '#2563EB',
 
   // Special
-  glass: 'rgba(0,0,0,0.03)',
-  glassBorder: 'rgba(0,0,0,0.06)',
-  overlay: 'rgba(0,0,0,0.5)',
+  glass: 'rgba(255,255,255,0.03)',
+  glassBorder: 'rgba(255,255,255,0.06)',
+  overlay: 'rgba(0,0,0,0.7)',
 
   // Zones (carte interactive)
   zonePaddock: '#D91E28',

@@ -3,12 +3,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../src/constants/theme';
 import { View } from 'react-native';
 
-type TabIconName = 'actus' | 'ticket' | 'info' | 'map' | 'calendar' | 'menu';
+type TabIconName = 'actus' | 'map' | 'calendar' | 'menu';
 
 const ICON_MAP: Record<TabIconName, keyof typeof Ionicons.glyphMap> = {
   actus: 'newspaper',
-  ticket: 'ticket',
-  info: 'information-circle',
   map: 'map',
   calendar: 'calendar',
   menu: 'ellipsis-horizontal',
@@ -58,27 +56,9 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Actus',
+          title: 'Actu',
           tabBarIcon: ({ color, focused }) => (
             <TabIcon name="actus" color={color} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="ticket"
-        options={{
-          title: 'Ticket',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="ticket" color={color} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="info"
-        options={{
-          title: 'Info',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="info" color={color} focused={focused} />
           ),
         }}
       />
