@@ -73,7 +73,7 @@ export default function ActusScreen() {
   return (
     <View style={styles.container}>
       {/* Fixed header bar - appears on scroll */}
-      <Animated.View style={[styles.fixedHeader, { paddingTop: insets.top + 2, opacity: headerOpacity }]}>
+      <Animated.View style={[styles.fixedHeader, { paddingTop: insets.top, opacity: headerOpacity }]}>
         <TouchableOpacity style={styles.fixedHeaderBtn} onPress={() => router.push('/notifications')}>
           <Ionicons name="notifications-outline" size={22} color={COLORS.text} />
           {unreadCount > 0 && <View style={styles.fixedBadge} />}
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.base,
-    paddingBottom: 4,
+    paddingBottom: 2,
     backgroundColor: COLORS.bg,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: COLORS.primary,
   },
-  fixedLogo: { height: 64, width: 280 },
+  fixedLogo: { height: 40, width: 180 },
 
   // Video hero
   videoContainer: { width: SCREEN_WIDTH, height: VIDEO_HEIGHT, backgroundColor: '#000' },
