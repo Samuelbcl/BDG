@@ -11,7 +11,7 @@ export default function Header() {
   const unreadCount = useAppStore((s) => s.unreadCount);
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 8 }]}>
+    <View style={[styles.container, { paddingTop: insets.top + 2 }]}>
       {/* Notification bell */}
       <TouchableOpacity
         style={styles.iconBtn}
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.base,
-    paddingBottom: 10,
+    paddingBottom: 4,
     backgroundColor: COLORS.bg,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.bg,
   },
   logo: {
-    height: 55,
-    width: 200,
+    height: 64,
+    width: 280,
   },
 });
