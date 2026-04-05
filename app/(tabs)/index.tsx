@@ -73,12 +73,12 @@ export default function ActusScreen() {
   return (
     <View style={styles.container}>
       {/* Fixed header background + logo - appears on scroll */}
-      <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 20, opacity: headerOpacity }]}>
+      <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 15, opacity: headerOpacity }]}>
         <Image source={require('../../assets/logo bdg.png')} style={styles.fixedLogo} resizeMode="contain" />
       </Animated.View>
 
       {/* Fixed icons - always visible */}
-      <View style={[styles.fixedIcons, { paddingTop: insets.top - 20 }]}>
+      <View style={[styles.fixedIcons, { paddingTop: insets.top + 5 }]}>
         <TouchableOpacity style={styles.fixedHeaderBtn} onPress={() => router.push('/notifications')}>
           <Ionicons name="notifications-outline" size={22} color={showHeader ? COLORS.text : '#FFF'} />
           {unreadCount > 0 && <View style={styles.fixedBadge} />}
