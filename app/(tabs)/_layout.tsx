@@ -6,10 +6,10 @@ import { View } from 'react-native';
 type TabIconName = 'actus' | 'map' | 'calendar' | 'info' | 'menu';
 
 const ICON_MAP: Record<TabIconName, keyof typeof Ionicons.glyphMap> = {
-  actus: 'newspaper',
-  map: 'map',
-  calendar: 'calendar',
-  info: 'information-circle',
+  actus: 'newspaper-outline',
+  map: 'map-outline',
+  calendar: 'calendar-outline',
+  info: 'information-circle-outline',
   menu: 'ellipsis-horizontal',
 };
 
