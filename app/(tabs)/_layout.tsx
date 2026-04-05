@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../src/constants/theme';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 type TabIconName = 'home' | 'map' | 'calendar' | 'ticket' | 'wallet';
 
@@ -17,16 +17,14 @@ function TabIcon({ name, color, focused }: { name: TabIconName; color: string; f
   return (
     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
       <Ionicons name={ICON_MAP[name]} size={22} color={color} />
-      {name === 'wallet' && (
+      {focused && (
         <View
           style={{
-            position: 'absolute',
-            top: -2,
-            right: -6,
-            width: 8,
-            height: 8,
-            borderRadius: 4,
-            backgroundColor: COLORS.accent,
+            marginTop: 4,
+            width: 4,
+            height: 4,
+            borderRadius: 2,
+            backgroundColor: COLORS.primary,
           }}
         />
       )}
@@ -40,7 +38,7 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: COLORS.surface,
+          backgroundColor: COLORS.bg,
           borderTopColor: COLORS.border,
           borderTopWidth: 1,
           height: 85,

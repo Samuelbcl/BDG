@@ -36,9 +36,11 @@ export default function HomeScreen() {
 
         {/* Hero Card */}
         <View style={styles.heroCard}>
+          <View style={styles.heroAccent} />
           <View style={styles.heroContent}>
             <View style={styles.liveRow}>
               <View style={styles.liveBadge}>
+                <View style={styles.liveDot} />
                 <Text style={styles.liveText}>LIVE</Text>
               </View>
               <Text style={styles.locationText}>{EVENT.location}</Text>
@@ -48,7 +50,7 @@ export default function HomeScreen() {
               <Text style={{ color: COLORS.primary }}>.04</Text>
               <Text style={{ color: COLORS.text }}>.2026</Text>
             </Text>
-            <Text style={styles.heroSub}>Le plus grand événement Supercars de Belgique</Text>
+            <Text style={styles.heroSub}>Le plus grand evenement Supercars de Belgique</Text>
             <View style={styles.statsRow}>
               {[
                 { n: EVENT.stats.cars, l: 'Voitures' },
@@ -68,8 +70,8 @@ export default function HomeScreen() {
         <View style={styles.actionsGrid}>
           {[
             { icon: 'qr-code', label: 'Mon Billet', sub: 'QR Code', color: COLORS.primary, tab: 'tickets' },
-            { icon: 'map', label: 'Carte', sub: 'Interactive', color: '#3B82F6', tab: 'map' },
-            { icon: 'car-sport', label: 'Baptêmes', sub: 'Réserver', color: COLORS.accent, tab: 'program' },
+            { icon: 'map', label: 'Carte', sub: 'Interactive', color: COLORS.zoneCircuit, tab: 'map' },
+            { icon: 'car-sport', label: 'Baptemes', sub: 'Reserver', color: COLORS.zoneBapteme, tab: 'program' },
             { icon: 'wallet', label: 'BDG Coins', sub: '245 coins', color: COLORS.success, tab: 'coins' },
           ].map((action, i) => (
             <TouchableOpacity
@@ -78,7 +80,7 @@ export default function HomeScreen() {
               onPress={() => router.push(`/(tabs)/${action.tab}` as any)}
               activeOpacity={0.7}
             >
-              <View style={[styles.actionIcon, { backgroundColor: `${action.color}18` }]}>
+              <View style={[styles.actionIcon, { backgroundColor: `${action.color}12` }]}>
                 <Ionicons name={action.icon as any} size={22} color={action.color} />
               </View>
               <View>
@@ -97,7 +99,7 @@ export default function HomeScreen() {
           <View style={{ flex: 1 }}>
             <Text style={styles.nextEventTag}>EN COURS</Text>
             <Text style={styles.nextEventTitle}>TrackDay - Session 1</Text>
-            <Text style={styles.nextEventSub}>09:00 - 10:30 · Piste principale</Text>
+            <Text style={styles.nextEventSub}>09:00 - 10:30 -- Piste principale</Text>
           </View>
           <Ionicons name="chevron-forward" size={16} color={COLORS.textSecondary} />
         </TouchableOpacity>
@@ -107,7 +109,7 @@ export default function HomeScreen() {
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Top Votes</Text>
             <TouchableOpacity>
-              <Text style={styles.seeAll}>Voir tout →</Text>
+              <Text style={styles.seeAll}>Voir tout</Text>
             </TouchableOpacity>
           </View>
           {FEATURED_CARS.map((car, i) => (
@@ -116,14 +118,14 @@ export default function HomeScreen() {
               i === 0 && styles.carCardFirst,
             ]} activeOpacity={0.7}>
               <View style={[styles.carRank, i === 0 && styles.carRankFirst]}>
-                <Text style={[styles.carRankText, i === 0 && { color: '#000' }]}>{i + 1}</Text>
+                <Text style={[styles.carRankText, i === 0 && { color: '#FFF' }]}>{i + 1}</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.carName}>{car.name}</Text>
                 <Text style={styles.carOwner}>{car.owner}</Text>
               </View>
               <View style={styles.carVotes}>
-                <Ionicons name="star" size={14} color={COLORS.accent} />
+                <Ionicons name="star" size={14} color={COLORS.primary} />
                 <Text style={styles.carVoteCount}>{car.votes}</Text>
               </View>
             </TouchableOpacity>
@@ -140,18 +142,20 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg },
   edition: { fontSize: FONT_SIZES.sm, color: COLORS.textSecondary, fontWeight: '600', letterSpacing: 2, textTransform: 'uppercase' },
   title: { fontSize: FONT_SIZES.xxxl, fontWeight: '800', letterSpacing: -0.5 },
-  bellBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: COLORS.card, borderWidth: 1, borderColor: COLORS.border, alignItems: 'center', justifyContent: 'center' },
+  bellBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: COLORS.surface, borderWidth: 1, borderColor: COLORS.border, alignItems: 'center', justifyContent: 'center' },
   bellDot: { position: 'absolute', top: 10, right: 10, width: 8, height: 8, borderRadius: 4, backgroundColor: COLORS.primary },
-  heroCard: { borderRadius: RADIUS.xl, overflow: 'hidden', marginBottom: SPACING.lg, borderWidth: 1, borderColor: `${COLORS.primary}33`, backgroundColor: COLORS.card },
+  heroCard: { borderRadius: RADIUS.xl, overflow: 'hidden', marginBottom: SPACING.lg, borderWidth: 1, borderColor: COLORS.border, backgroundColor: COLORS.card },
+  heroAccent: { height: 4, backgroundColor: COLORS.primary },
   heroContent: { padding: SPACING.xl },
   liveRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: SPACING.md },
-  liveBadge: { backgroundColor: COLORS.success, paddingHorizontal: 10, paddingVertical: 3, borderRadius: 20 },
-  liveText: { color: '#000', fontSize: FONT_SIZES.xs, fontWeight: '800', letterSpacing: 0.5 },
+  liveBadge: { backgroundColor: COLORS.primary, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 20, flexDirection: 'row', alignItems: 'center', gap: 6 },
+  liveDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#FFF' },
+  liveText: { color: '#FFF', fontSize: FONT_SIZES.xs, fontWeight: '800', letterSpacing: 0.5 },
   locationText: { fontSize: FONT_SIZES.md, color: COLORS.textSecondary },
   heroDate: { fontSize: FONT_SIZES.hero, fontWeight: '900', letterSpacing: -0.5, marginBottom: 6 },
   heroSub: { fontSize: FONT_SIZES.base, color: COLORS.textSecondary, marginBottom: SPACING.lg },
   statsRow: { flexDirection: 'row', gap: 10 },
-  statBox: { flex: 1, backgroundColor: COLORS.glass, borderRadius: RADIUS.md, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: COLORS.border },
+  statBox: { flex: 1, backgroundColor: COLORS.surface, borderRadius: RADIUS.md, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: COLORS.border },
   statNumber: { fontSize: 18, fontWeight: '800', color: COLORS.text },
   statLabel: { fontSize: FONT_SIZES.xs, color: COLORS.textSecondary, fontWeight: '600' },
   actionsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: SPACING.lg },
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
   actionLabel: { color: COLORS.text, fontSize: FONT_SIZES.base, fontWeight: '700' },
   actionSub: { color: COLORS.textSecondary, fontSize: FONT_SIZES.sm },
   nextEvent: { backgroundColor: COLORS.card, borderWidth: 1, borderColor: `${COLORS.primary}33`, borderRadius: RADIUS.lg, padding: 14, marginBottom: SPACING.lg, flexDirection: 'row', alignItems: 'center', gap: 14 },
-  nextEventIcon: { width: 48, height: 48, borderRadius: 14, backgroundColor: `${COLORS.primary}22`, alignItems: 'center', justifyContent: 'center' },
+  nextEventIcon: { width: 48, height: 48, borderRadius: 14, backgroundColor: `${COLORS.primary}0D`, alignItems: 'center', justifyContent: 'center' },
   nextEventTag: { fontSize: FONT_SIZES.xs, color: COLORS.primary, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' },
   nextEventTitle: { fontSize: FONT_SIZES.lg, fontWeight: '700', color: COLORS.text },
   nextEventSub: { fontSize: FONT_SIZES.sm, color: COLORS.textSecondary },
@@ -169,12 +173,12 @@ const styles = StyleSheet.create({
   sectionTitle: { fontSize: FONT_SIZES.xl, fontWeight: '800', color: COLORS.text },
   seeAll: { fontSize: FONT_SIZES.sm, color: COLORS.primary, fontWeight: '600' },
   carCard: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: COLORS.card, borderWidth: 1, borderColor: COLORS.border, borderRadius: 14, padding: 12, marginBottom: 8 },
-  carCardFirst: { backgroundColor: `${COLORS.accent}0D`, borderColor: `${COLORS.accent}33` },
+  carCardFirst: { backgroundColor: `${COLORS.primary}08`, borderColor: `${COLORS.primary}22` },
   carRank: { width: 28, height: 28, borderRadius: 8, backgroundColor: COLORS.surface, alignItems: 'center', justifyContent: 'center' },
-  carRankFirst: { backgroundColor: COLORS.accent },
+  carRankFirst: { backgroundColor: COLORS.primary },
   carRankText: { fontSize: FONT_SIZES.base, fontWeight: '900', color: COLORS.textSecondary },
   carName: { fontSize: FONT_SIZES.base, fontWeight: '700', color: COLORS.text },
   carOwner: { fontSize: FONT_SIZES.sm, color: COLORS.textSecondary },
   carVotes: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  carVoteCount: { fontSize: FONT_SIZES.base, fontWeight: '800', color: COLORS.accent },
+  carVoteCount: { fontSize: FONT_SIZES.base, fontWeight: '800', color: COLORS.primary },
 });

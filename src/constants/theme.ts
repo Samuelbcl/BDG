@@ -1,47 +1,50 @@
-// BDG Motor Show - Design System
-// Dark immersive racing aesthetic
+// BDG Motor Show - Les Bruleurs de Gommes
+// Light theme - Rouge racing / Blanc / Noir
 
 export const COLORS = {
-  // Core
-  bg: '#0A0A0F',
-  surface: '#13131A',
-  card: '#1A1A24',
-  cardHover: '#22222E',
-  border: '#2A2A38',
+  // Core - Light theme
+  bg: '#FFFFFF',
+  surface: '#F5F5F7',
+  card: '#FFFFFF',
+  cardHover: '#F0F0F2',
+  border: '#E5E5EA',
 
-  // Brand
-  primary: '#FF3B1D',
-  primaryLight: '#FF5A40',
-  primaryDark: '#CC2F17',
-  primaryGlow: 'rgba(255, 59, 29, 0.3)',
+  // Brand - Rouge BDG
+  primary: '#D91E28',
+  primaryLight: '#EF4444',
+  primaryDark: '#B91C1C',
+  primaryGlow: 'rgba(217, 30, 40, 0.12)',
 
-  // Accent
-  accent: '#FFB800',
-  accentLight: '#FFCC40',
-  accentGlow: 'rgba(255, 184, 0, 0.2)',
+  // Accent - Noir racing
+  accent: '#1A1A1A',
+  accentLight: '#333333',
+  accentGlow: 'rgba(26, 26, 26, 0.08)',
 
   // Text
-  text: '#FFFFFF',
-  textSecondary: '#8888A0',
-  textMuted: '#555568',
+  text: '#111111',
+  textSecondary: '#6B7280',
+  textMuted: '#9CA3AF',
 
   // Status
-  success: '#00D26A',
-  warning: '#FFB800',
-  error: '#FF3B3B',
-  info: '#3B82F6',
+  success: '#16A34A',
+  warning: '#F59E0B',
+  error: '#DC2626',
+  info: '#2563EB',
 
   // Special
-  glass: 'rgba(255,255,255,0.05)',
-  glassBorder: 'rgba(255,255,255,0.08)',
-  overlay: 'rgba(0,0,0,0.6)',
+  glass: 'rgba(0,0,0,0.03)',
+  glassBorder: 'rgba(0,0,0,0.06)',
+  overlay: 'rgba(0,0,0,0.5)',
 
   // Zones (carte interactive)
-  zonePaddock: '#FF3B1D',
-  zoneBapteme: '#FFB800',
-  zoneStands: '#A855F7',
-  zoneFood: '#00D26A',
-  zoneVIP: '#E11D48',
+  zonePaddock: '#D91E28',
+  zoneBapteme: '#F59E0B',
+  zoneStands: '#7C3AED',
+  zoneFood: '#16A34A',
+  zoneVIP: '#111111',
+  zoneCircuit: '#2563EB',
+  zonePitLane: '#DC2626',
+  zoneEauRouge: '#059669',
 };
 
 export const SPACING = {
@@ -89,24 +92,24 @@ export const FONT_SIZES = {
 export const SHADOWS = {
   card: {
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 12,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 3,
   },
   elevated: {
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 24,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 16,
+    elevation: 6,
   },
   glow: (color: string) => ({
     shadowColor: color,
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.4,
-    shadowRadius: 16,
-    elevation: 6,
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 4,
   }),
 };
 
