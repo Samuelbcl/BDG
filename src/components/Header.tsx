@@ -23,11 +23,13 @@ export default function Header() {
       </TouchableOpacity>
 
       {/* Logo */}
-      <Image
-        source={require('../../assets/logo bdg.png')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+      <View style={styles.logoWrap}>
+        <Image
+          source={require('../../assets/logo bdg.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+      </View>
 
       {/* Search */}
       <TouchableOpacity
@@ -71,8 +73,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: COLORS.bg,
   },
-  logo: {
+  logoWrap: {
     height: 40,
-    width: 180,
+    overflow: 'visible',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    height: 80,
+    width: 280,
   },
 });
