@@ -1,6 +1,6 @@
 import { useState, useRef, useMemo, useCallback } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Modal, Platform } from 'react-native';
-import MapView, { Polyline } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONT_SIZES } from '../constants/theme';
 import { CIRCUIT_ZONES, MAP_POIS } from '../constants/data';
@@ -25,27 +25,25 @@ const POI_CATEGORIES: { key: PoiCategory; label: string }[] = [
   { key: 'water', label: 'Eau' },
   { key: 'merch', label: 'Merch' },
   { key: 'photo', label: 'Photo' },
+  { key: 'entrance', label: 'Entrees' },
 ];
 
 // Zone type labels for filter panel
 const ZONE_CATEGORIES = [
-  { key: 'corner' as const, label: 'Virages', icon: 'flag' as const, color: COLORS.primary },
   { key: 'paddock' as const, label: 'Paddocks', icon: 'car-sport' as const, color: COLORS.zonePaddock },
-  { key: 'service' as const, label: 'Services', icon: 'storefront' as const, color: COLORS.zoneStands },
-  { key: 'grandstand' as const, label: 'Tribunes', icon: 'star' as const, color: COLORS.zoneVIP },
+  { key: 'service' as const, label: 'Stands & Services', icon: 'storefront' as const, color: COLORS.zoneStands },
+  { key: 'grandstand' as const, label: 'Tribunes', icon: 'eye' as const, color: COLORS.zoneVIP },
+  { key: 'show' as const, label: 'Shows', icon: 'flame' as const, color: COLORS.zoneBapteme },
+  { key: 'entrance' as const, label: 'Entrees', icon: 'enter' as const, color: COLORS.info },
 ];
 
-// Track path connecting all corners in order
-const TRACK_CORNER_IDS = [
-  'la-source', 'eau-rouge', 'kemmel', 'les-combes', 'malmedy',
-  'rivage', 'pouhon', 'fagnes', 'stavelot', 'blanchimont', 'bus-stop',
-];
+// No track path needed - event zones are the focus now
 
 const SPA_REGION = {
-  latitude: 50.4340,
-  longitude: 5.9660,
-  latitudeDelta: 0.018,
-  longitudeDelta: 0.025,
+  latitude: 50.4430,
+  longitude: 5.9675,
+  latitudeDelta: 0.010,
+  longitudeDelta: 0.014,
 };
 
 export default function InteractiveMap() {
@@ -56,23 +54,15 @@ export default function InteractiveMap() {
 
   // Filter state: which zone types and POI categories are visible
   const [visibleZoneTypes, setVisibleZoneTypes] = useState<Set<string>>(
-    new Set(['corner', 'straight', 'paddock', 'service', 'grandstand']),
+    new Set(['corner', 'straight', 'paddock', 'service', 'grandstand', 'entrance', 'show']),
   );
   const [visiblePois, setVisiblePois] = useState<Set<PoiCategory>>(
-    new Set(['wc', 'parking', 'firstaid', 'info', 'accessibility', 'water', 'merch', 'photo']),
+    new Set(['wc', 'parking', 'firstaid', 'info', 'accessibility', 'water', 'merch', 'photo', 'entrance']),
   );
 
   const userLocation = useAppStore((s) => s.userLocation);
 
-  // Track polyline
-  const trackPath = useMemo(() => {
-    const path = TRACK_CORNER_IDS
-      .map((id) => CIRCUIT_ZONES.find((z) => z.id === id))
-      .filter(Boolean)
-      .map((z) => z!.coordinates);
-    if (path.length > 0) path.push(path[0]);
-    return path;
-  }, []);
+  // No track polyline needed for event zones
 
   // Filtered zones
   const filteredZones = useMemo(
@@ -110,8 +100,8 @@ export default function InteractiveMap() {
   }, []);
 
   const showAll = useCallback(() => {
-    setVisibleZoneTypes(new Set(['corner', 'straight', 'paddock', 'service', 'grandstand']));
-    setVisiblePois(new Set(['wc', 'parking', 'firstaid', 'info', 'accessibility', 'water', 'merch', 'photo']));
+    setVisibleZoneTypes(new Set(['corner', 'straight', 'paddock', 'service', 'grandstand', 'entrance', 'show']));
+    setVisiblePois(new Set(['wc', 'parking', 'firstaid', 'info', 'accessibility', 'water', 'merch', 'photo', 'entrance']));
   }, []);
 
   const hideAll = useCallback(() => {
@@ -191,14 +181,6 @@ export default function InteractiveMap() {
             showsUserLocation={false}
             showsMyLocationButton={false}
           >
-            {/* Racing line */}
-            <Polyline
-              coordinates={trackPath}
-              strokeColor={COLORS.primary}
-              strokeWidth={3}
-              lineDashPattern={[12, 6]}
-            />
-
             {/* Zone polygons */}
             {polygonZones.map((zone) => (
               <MapZonePolygon key={zone.id} zone={zone} onPress={handleZonePress} />
@@ -291,23 +273,6 @@ export default function InteractiveMap() {
                   />
                 </TouchableOpacity>
               ))}
-              {/* Straights grouped with corners */}
-              <TouchableOpacity
-                style={styles.filterItem}
-                onPress={() => toggleZoneType('straight')}
-                activeOpacity={0.7}
-              >
-                <View style={[styles.filterIcon, { backgroundColor: COLORS.zoneCircuit + '20' }]}>
-                  <Ionicons name="arrow-forward" size={16} color={COLORS.zoneCircuit} />
-                </View>
-                <Text style={styles.filterItemLabel}>Lignes droites</Text>
-                <Ionicons
-                  name={visibleZoneTypes.has('straight') ? 'checkbox' : 'square-outline'}
-                  size={22}
-                  color={visibleZoneTypes.has('straight') ? COLORS.primary : COLORS.textMuted}
-                />
-              </TouchableOpacity>
-
               {/* POI categories */}
               <Text style={[styles.filterSectionTitle, { marginTop: SPACING.lg }]}>Points d'interet</Text>
               {POI_CATEGORIES.map((cat) => {

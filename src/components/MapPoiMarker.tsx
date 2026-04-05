@@ -16,6 +16,7 @@ const POI_CONFIG: Record<PoiCategory, { icon: keyof typeof Ionicons.glyphMap; bg
   water: { icon: 'water-outline', bg: '#0EA5E9', color: '#FFF' },
   merch: { icon: 'bag-handle', bg: '#F59E0B', color: '#FFF' },
   photo: { icon: 'camera', bg: '#EC4899', color: '#FFF' },
+  entrance: { icon: 'enter', bg: '#10B981', color: '#FFF' },
 };
 
 export default function MapPoiMarker({ poi }: Props) {

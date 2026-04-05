@@ -27,7 +27,7 @@ export interface ScheduleItem {
 export interface CircuitZone {
   id: string;
   name: string;
-  type: 'corner' | 'straight' | 'paddock' | 'service' | 'grandstand';
+  type: 'corner' | 'straight' | 'paddock' | 'service' | 'grandstand' | 'entrance' | 'show';
   description: string;
   details: string[];
   color: string;
@@ -143,7 +143,7 @@ export interface BaptemeBooking {
 }
 
 // === MAP POIs ===
-export type PoiCategory = 'wc' | 'parking' | 'firstaid' | 'info' | 'accessibility' | 'water' | 'merch' | 'photo';
+export type PoiCategory = 'wc' | 'parking' | 'firstaid' | 'info' | 'accessibility' | 'water' | 'merch' | 'photo' | 'entrance';
 
 export interface MapPoi {
   id: string;

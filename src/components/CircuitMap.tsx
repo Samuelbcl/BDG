@@ -109,6 +109,8 @@ function ZoneDetailModal({ zone, visible, onClose }: ZoneDetailModalProps) {
     paddock: 'Paddock',
     service: 'Services',
     grandstand: 'Tribune / VIP',
+    entrance: 'Entree',
+    show: 'Show',
   }[zone.type];
 
   const typeIcon: keyof typeof Ionicons.glyphMap = {
@@ -116,7 +118,9 @@ function ZoneDetailModal({ zone, visible, onClose }: ZoneDetailModalProps) {
     straight: 'arrow-forward',
     paddock: 'car-sport',
     service: 'storefront',
-    grandstand: 'star',
+    grandstand: 'eye',
+    entrance: 'enter',
+    show: 'flame',
   }[zone.type] as any;
 
   return (

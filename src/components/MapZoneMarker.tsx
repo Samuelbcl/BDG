@@ -14,11 +14,13 @@ const ICON_MAP: Record<CircuitZone['type'], keyof typeof Ionicons.glyphMap> = {
   straight: 'arrow-forward',
   paddock: 'car-sport',
   service: 'storefront',
-  grandstand: 'star',
+  grandstand: 'eye',
+  entrance: 'enter',
+  show: 'flame',
 };
 
 export default function MapZoneMarker({ zone, isSelected, onPress }: Props) {
-  const isService = zone.type === 'paddock' || zone.type === 'service' || zone.type === 'grandstand';
+  const isService = zone.type !== 'corner' && zone.type !== 'straight';
 
   return (
     <Marker
