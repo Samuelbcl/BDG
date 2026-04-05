@@ -30,6 +30,10 @@ interface AppState {
   isOffline: boolean;
   setOffline: (offline: boolean) => void;
 
+  // Location
+  userLocation: { latitude: number; longitude: number } | null;
+  setUserLocation: (loc: { latitude: number; longitude: number } | null) => void;
+
   // Event state
   isLive: boolean;
   setLive: (live: boolean) => void;
@@ -76,6 +80,10 @@ export const useAppStore = create<AppState>((set) => ({
     set((state) => ({
       votedCars: [...state.votedCars, carId],
     })),
+
+  // Location
+  userLocation: null,
+  setUserLocation: (loc) => set({ userLocation: loc }),
 
   // Offline
   isOffline: false,

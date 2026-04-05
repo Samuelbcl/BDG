@@ -312,6 +312,12 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
     color: COLORS.zonePitLane,
     mapPosition: { x: 85, y: 45 },
     coordinates: { latitude: 50.4370, longitude: 5.9712 },
+    polygon: [
+      { latitude: 50.4368, longitude: 5.9705 },
+      { latitude: 50.4372, longitude: 5.9705 },
+      { latitude: 50.4372, longitude: 5.9720 },
+      { latitude: 50.4368, longitude: 5.9720 },
+    ],
     scheduleIds: ['2', '3', '6'],
   },
   {
@@ -329,6 +335,12 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
     color: COLORS.zonePaddock,
     mapPosition: { x: 90, y: 30 },
     coordinates: { latitude: 50.4375, longitude: 5.9720 },
+    polygon: [
+      { latitude: 50.4373, longitude: 5.9716 },
+      { latitude: 50.4378, longitude: 5.9716 },
+      { latitude: 50.4378, longitude: 5.9726 },
+      { latitude: 50.4373, longitude: 5.9726 },
+    ],
     scheduleIds: ['1', '4', '7', '8'],
     cars: ['Lamborghini Revuelto', 'Ferrari SF90', 'Porsche 911 GT3 RS', 'McLaren 750S'],
   },
@@ -347,6 +359,12 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
     color: COLORS.zoneBapteme,
     mapPosition: { x: 92, y: 55 },
     coordinates: { latitude: 50.4365, longitude: 5.9700 },
+    polygon: [
+      { latitude: 50.4362, longitude: 5.9694 },
+      { latitude: 50.4368, longitude: 5.9694 },
+      { latitude: 50.4368, longitude: 5.9706 },
+      { latitude: 50.4362, longitude: 5.9706 },
+    ],
     scheduleIds: ['3'],
   },
   {
@@ -364,6 +382,12 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
     color: COLORS.zoneStands,
     mapPosition: { x: 95, y: 15 },
     coordinates: { latitude: 50.4380, longitude: 5.9725 },
+    polygon: [
+      { latitude: 50.4378, longitude: 5.9720 },
+      { latitude: 50.4383, longitude: 5.9720 },
+      { latitude: 50.4383, longitude: 5.9732 },
+      { latitude: 50.4378, longitude: 5.9732 },
+    ],
     stands: ['Motortech', 'AF MotorSport', 'Purefect', 'K\'Mystik'],
   },
   {
@@ -381,6 +405,12 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
     color: COLORS.zoneFood,
     mapPosition: { x: 98, y: 42 },
     coordinates: { latitude: 50.4378, longitude: 5.9735 },
+    polygon: [
+      { latitude: 50.4376, longitude: 5.9730 },
+      { latitude: 50.4381, longitude: 5.9730 },
+      { latitude: 50.4381, longitude: 5.9740 },
+      { latitude: 50.4376, longitude: 5.9740 },
+    ],
     scheduleIds: ['5'],
   },
   {
@@ -398,6 +428,12 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
     color: COLORS.zoneVIP,
     mapPosition: { x: 88, y: 60 },
     coordinates: { latitude: 50.4368, longitude: 5.9710 },
+    polygon: [
+      { latitude: 50.4365, longitude: 5.9706 },
+      { latitude: 50.4371, longitude: 5.9706 },
+      { latitude: 50.4371, longitude: 5.9714 },
+      { latitude: 50.4365, longitude: 5.9714 },
+    ],
   },
 ];
 

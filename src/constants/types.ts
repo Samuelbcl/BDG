@@ -41,6 +41,8 @@ export interface CircuitZone {
     latitude: number;
     longitude: number;
   };
+  // Polygon boundary for map overlay
+  polygon?: { latitude: number; longitude: number }[];
   // Schedule items happening at this zone
   scheduleIds?: string[];
   // Cars or stands at this location
