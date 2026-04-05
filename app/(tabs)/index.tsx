@@ -53,12 +53,13 @@ export default function ActusScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const unreadCount = useAppStore((s) => s.unreadCount);
+  const videoRef = useRef<Video>(null);
   const [showHeader, setShowHeader] = useState(false);
   const headerOpacity = useRef(new Animated.Value(0)).current;
 
   const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const y = e.nativeEvent.contentOffset.y;
-    const shouldShow = y > VIDEO_HEIGHT - 100;
+    const shouldShow = y > 50;
     if (shouldShow !== showHeader) {
       setShowHeader(shouldShow);
       Animated.timing(headerOpacity, {
@@ -98,6 +99,12 @@ export default function ActusScreen() {
             shouldPlay
             isLooping
             isMuted
+            onPlaybackStatusUpdate={(status) => {
+              if ('didJustFinish' in status && status.didJustFinish) {
+                videoRef.current?.replayAsync();
+              }
+            }}
+            ref={videoRef}
           />
           <View style={styles.videoOverlay} />
 
@@ -115,14 +122,17 @@ export default function ActusScreen() {
           {/* Stats overlay */}
           <View style={styles.statsOverlay}>
             <View style={styles.statItem}>
+              <Text style={styles.statPlus}>+</Text>
               <Text style={styles.statNumber}>1000</Text>
               <Text style={styles.statLabel}>Voitures sportives selectionnees</Text>
             </View>
             <View style={styles.statItem}>
+              <Text style={styles.statPlus}>+</Text>
               <Text style={styles.statNumber}>75</Text>
               <Text style={styles.statLabel}>Stands professionnels</Text>
             </View>
             <View style={styles.statItem}>
+              <Text style={styles.statPlus}>+</Text>
               <Text style={styles.statNumber}>20000</Text>
               <Text style={styles.statLabel}>Visiteurs</Text>
             </View>
@@ -260,6 +270,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.base,
   },
   statItem: { alignItems: 'center' },
+  statPlus: { fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: '400', position: 'absolute', top: -2, left: -10 },
   statNumber: { fontSize: 26, fontWeight: '900', color: '#FFF' },
   statLabel: { fontSize: 9, color: 'rgba(255,255,255,0.8)', fontWeight: '500', textAlign: 'center', maxWidth: 100 },
 

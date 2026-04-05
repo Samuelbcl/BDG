@@ -1,7 +1,6 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../src/constants/theme';
-import { View } from 'react-native';
 
 type TabIconName = 'actus' | 'map' | 'calendar' | 'info' | 'menu';
 
@@ -13,22 +12,9 @@ const ICON_MAP: Record<TabIconName, keyof typeof Ionicons.glyphMap> = {
   menu: 'ellipsis-horizontal',
 };
 
-function TabIcon({ name, color, focused }: { name: TabIconName; color: string; focused: boolean }) {
+function TabIcon({ name, color }: { name: TabIconName; color: string; focused: boolean }) {
   return (
-    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-      <Ionicons name={ICON_MAP[name]} size={22} color={color} />
-      {focused && (
-        <View
-          style={{
-            marginTop: 4,
-            width: 4,
-            height: 4,
-            borderRadius: 2,
-            backgroundColor: COLORS.primary,
-          }}
-        />
-      )}
-    </View>
+    <Ionicons name={ICON_MAP[name]} size={22} color={color} />
   );
 }
 
