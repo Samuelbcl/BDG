@@ -51,15 +51,32 @@ export default function InteractiveMap() {
   );
   const userLocation = useAppStore((s) => s.userLocation);
 
-  // Lock map to event area
-  useEffect(() => {
-    if (mapRef.current && viewMode === 'map') {
-      mapRef.current.setMapBoundaries(
-        MAP_BOUNDARIES.northEast,
-        MAP_BOUNDARIES.southWest,
-      );
+  // Lock map to event area - snap back if user scrolls too far
+  const handleRegionChange = useCallback((region: { latitude: number; longitude: number; latitudeDelta: number; longitudeDelta: number }) => {
+    let needsSnap = false;
+    const snapped = { ...region };
+
+    if (region.latitude > MAP_BOUNDARIES.northEast.latitude) {
+      snapped.latitude = MAP_BOUNDARIES.northEast.latitude;
+      needsSnap = true;
     }
-  }, [viewMode]);
+    if (region.latitude < MAP_BOUNDARIES.southWest.latitude) {
+      snapped.latitude = MAP_BOUNDARIES.southWest.latitude;
+      needsSnap = true;
+    }
+    if (region.longitude > MAP_BOUNDARIES.northEast.longitude) {
+      snapped.longitude = MAP_BOUNDARIES.northEast.longitude;
+      needsSnap = true;
+    }
+    if (region.longitude < MAP_BOUNDARIES.southWest.longitude) {
+      snapped.longitude = MAP_BOUNDARIES.southWest.longitude;
+      needsSnap = true;
+    }
+
+    if (needsSnap) {
+      mapRef.current?.animateToRegion(snapped, 200);
+    }
+  }, []);
 
   // Filtered zones
   const filteredZones = useMemo(
@@ -163,6 +180,7 @@ export default function InteractiveMap() {
             maxZoomLevel={20}
             showsUserLocation={false}
             showsMyLocationButton={false}
+            onRegionChangeComplete={handleRegionChange}
           >
             {/* Zone polygons */}
             {polygonZones.map((zone) => (
