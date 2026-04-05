@@ -74,13 +74,13 @@ const styles = StyleSheet.create({
     borderColor: COLORS.bg,
   },
   logoWrap: {
-    height: 40,
+    height: 42,
     overflow: 'visible',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    height: 80,
-    width: 280,
+    height: 65,
+    width: 230,
   },
 });
