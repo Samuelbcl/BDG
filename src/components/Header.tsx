@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -22,14 +22,7 @@ export default function Header() {
         {unreadCount > 0 && <View style={styles.badge} />}
       </TouchableOpacity>
 
-      {/* Logo */}
-      <View style={styles.logoWrap}>
-        <Image
-          source={require('../../assets/logo bdg.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-      </View>
+      <View />
 
       {/* Search */}
       <TouchableOpacity
@@ -49,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.base,
-    paddingBottom: 2,
+    paddingBottom: 6,
     backgroundColor: COLORS.bg,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
@@ -72,15 +65,5 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderWidth: 2,
     borderColor: COLORS.bg,
-  },
-  logoWrap: {
-    height: 42,
-    overflow: 'visible',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    height: 65,
-    width: 230,
   },
 });
