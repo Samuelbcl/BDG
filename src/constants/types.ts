@@ -24,6 +24,30 @@ export interface ScheduleItem {
 }
 
 // === CARTE ===
+export interface CircuitZone {
+  id: string;
+  name: string;
+  type: 'corner' | 'straight' | 'paddock' | 'service' | 'grandstand';
+  description: string;
+  details: string[];
+  color: string;
+  // Position on the SVG map (percentage-based)
+  mapPosition: {
+    x: number;
+    y: number;
+  };
+  // GPS coordinates for real map
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  // Schedule items happening at this zone
+  scheduleIds?: string[];
+  // Cars or stands at this location
+  cars?: string[];
+  stands?: string[];
+}
+
 export interface Zone {
   id: string;
   name: string;
@@ -86,7 +110,7 @@ export interface CoinTransaction {
   timestamp: string;
 }
 
-// === BAPTÊMES ===
+// === BAPTEMES ===
 export interface Bapteme {
   id: string;
   carModel: string;

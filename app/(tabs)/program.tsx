@@ -25,7 +25,7 @@ export default function ProgramScreen() {
                   <Text style={styles.cardTitle}>{item.title}</Text>
                   <Text style={styles.cardDesc}>{item.description}</Text>
                 </View>
-                <View style={[styles.tag, { backgroundColor: `${item.tagColor}18` }]}>
+                <View style={[styles.tag, { backgroundColor: `${item.tagColor}12` }]}>
                   <Text style={[styles.tagText, { color: item.tagColor }]}>{item.tag}</Text>
                 </View>
               </View>

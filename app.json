@@ -6,11 +6,11 @@
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "scheme": "bdg",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0A0A0F"
+      "backgroundColor": "#FFFFFF"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -19,13 +19,13 @@
       "buildNumber": "1",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "L'app utilise votre position pour la carte interactive du circuit.",
-        "NSCameraUsageDescription": "L'app utilise la caméra pour scanner les QR codes des billets."
+        "NSCameraUsageDescription": "L'app utilise la camera pour scanner les QR codes des billets."
       }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
-        "backgroundColor": "#0A0A0F"
+        "backgroundColor": "#FFFFFF"
       },
       "package": "com.biancolastudio.bdg",
       "versionCode": 1,
@@ -43,7 +43,7 @@
         "expo-notifications",
         {
           "icon": "./src/assets/notification-icon.png",
-          "color": "#FF3B1D"
+          "color": "#D91E28"
         }
       ],
       [
@@ -55,7 +55,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "L'app utilise la caméra pour scanner les QR codes."
+          "cameraPermission": "L'app utilise la camera pour scanner les QR codes."
         }
       ]
     ],
