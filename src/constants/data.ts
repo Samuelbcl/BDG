@@ -257,7 +257,7 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
     details: ['Zone couverte', 'Stands tuning & performance', 'Paiement BDG Coins'],
     color: COLORS.zoneStands,
     mapPosition: { x: 65, y: 35 },
-    coordinates: { latitude: 50.444346, longitude: 5.967437 },
+    coordinates: { latitude: 50.444452, longitude: 5.966914 },
     stands: ['Purefect', 'K\'Mystik'],
   },
   {

@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useCallback } from 'react';
+import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Modal, Platform } from 'react-native';
 import MapView from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
@@ -33,6 +33,12 @@ const SPA_REGION = {
   longitudeDelta: 0.014,
 };
 
+// Restrict map movement to the event area
+const MAP_BOUNDARIES = {
+  northEast: { latitude: 50.4480, longitude: 5.9750 },
+  southWest: { latitude: 50.4380, longitude: 5.9600 },
+};
+
 export default function InteractiveMap() {
   const mapRef = useRef<MapView>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('map');
@@ -44,6 +50,16 @@ export default function InteractiveMap() {
     new Set(['corner', 'straight', 'paddock', 'service', 'grandstand', 'entrance', 'show']),
   );
   const userLocation = useAppStore((s) => s.userLocation);
+
+  // Lock map to event area
+  useEffect(() => {
+    if (mapRef.current && viewMode === 'map') {
+      mapRef.current.setMapBoundaries(
+        MAP_BOUNDARIES.northEast,
+        MAP_BOUNDARIES.southWest,
+      );
+    }
+  }, [viewMode]);
 
   // Filtered zones
   const filteredZones = useMemo(
@@ -143,7 +159,7 @@ export default function InteractiveMap() {
             rotateEnabled
             showsCompass
             showsScale
-            minZoomLevel={14}
+            minZoomLevel={15}
             maxZoomLevel={20}
             showsUserLocation={false}
             showsMyLocationButton={false}

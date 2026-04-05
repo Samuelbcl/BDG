@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
 import type { CircuitZone } from '../constants/types';
@@ -23,13 +23,17 @@ export default function MapZoneMarker({ zone, isSelected, onPress }: Props) {
   return (
     <Marker
       coordinate={zone.coordinates}
-      anchor={{ x: 0.5, y: 1 }}
-      tracksViewChanges={false}
+      anchor={{ x: 0.5, y: 0.5 }}
+      tracksViewChanges={Platform.OS === 'ios' ? false : undefined}
+      stopPropagation
       onPress={() => onPress(zone)}
     >
-      <View style={[styles.pin, { backgroundColor: zone.color }, isSelected && styles.pinSelected]}>
-        <Ionicons name={ICON_MAP[zone.type]} size={16} color="#FFF" />
-        <View style={[styles.pinTail, { borderTopColor: zone.color }]} />
+      <View style={[
+        styles.pin,
+        { backgroundColor: zone.color },
+        isSelected && styles.pinSelected,
+      ]}>
+        <Ionicons name={ICON_MAP[zone.type]} size={14} color="#FFF" />
       </View>
     </Marker>
   );
@@ -37,39 +41,25 @@ export default function MapZoneMarker({ zone, isSelected, onPress }: Props) {
 
 const styles = StyleSheet.create({
   pin: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    borderBottomRightRadius: 2,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 2.5,
+    borderColor: '#FFF',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
     elevation: 5,
-    borderWidth: 2,
-    borderColor: '#FFF',
   },
   pinSelected: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    borderBottomRightRadius: 2,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     borderWidth: 3,
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
+    shadowOpacity: 0.5,
     elevation: 8,
-  },
-  pinTail: {
-    position: 'absolute',
-    bottom: -6,
-    width: 0,
-    height: 0,
-    borderLeftWidth: 5,
-    borderRightWidth: 5,
-    borderTopWidth: 6,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
   },
 });
