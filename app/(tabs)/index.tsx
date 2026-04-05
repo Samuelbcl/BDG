@@ -72,17 +72,21 @@ export default function ActusScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Fixed header bar - appears on scroll */}
-      <Animated.View style={[styles.fixedHeader, { paddingTop: insets.top - 10, opacity: headerOpacity }]}>
+      {/* Fixed header background + logo - appears on scroll */}
+      <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 20, opacity: headerOpacity }]}>
+        <Image source={require('../../assets/logo bdg.png')} style={styles.fixedLogo} resizeMode="contain" />
+      </Animated.View>
+
+      {/* Fixed icons - always visible */}
+      <View style={[styles.fixedIcons, { paddingTop: insets.top - 20 }]}>
         <TouchableOpacity style={styles.fixedHeaderBtn} onPress={() => router.push('/notifications')}>
-          <Ionicons name="notifications-outline" size={22} color={COLORS.text} />
+          <Ionicons name="notifications-outline" size={22} color={showHeader ? COLORS.text : '#FFF'} />
           {unreadCount > 0 && <View style={styles.fixedBadge} />}
         </TouchableOpacity>
-        <Image source={require('../../assets/logo bdg.png')} style={styles.fixedLogo} resizeMode="contain" />
         <TouchableOpacity style={styles.fixedHeaderBtn} onPress={() => router.push('/search')}>
-          <Ionicons name="search-outline" size={22} color={COLORS.text} />
+          <Ionicons name="search-outline" size={22} color={showHeader ? COLORS.text : '#FFF'} />
         </TouchableOpacity>
-      </Animated.View>
+      </View>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -107,17 +111,6 @@ export default function ActusScreen() {
             ref={videoRef}
           />
           <View style={styles.videoOverlay} />
-
-          {/* Header overlay on video - transparent */}
-          <View style={[styles.headerOverlay, { paddingTop: insets.top + 8 }]}>
-            <TouchableOpacity style={styles.headerBtn} onPress={() => router.push('/notifications')}>
-              <Ionicons name="notifications-outline" size={22} color="#FFF" />
-              {unreadCount > 0 && <View style={styles.headerBadge} />}
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.headerBtn} onPress={() => router.push('/search')}>
-              <Ionicons name="search-outline" size={22} color="#FFF" />
-            </TouchableOpacity>
-          </View>
 
           {/* Stats overlay */}
           <View style={styles.statsOverlay}>
@@ -206,21 +199,32 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
   scrollContent: { paddingBottom: 120 },
 
-  // Fixed header (appears on scroll)
-  fixedHeader: {
+  // Fixed header bg + logo (appears on scroll)
+  fixedHeaderBg: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    zIndex: 100,
-    flexDirection: 'row',
+    zIndex: 99,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: SPACING.base,
-    paddingBottom: 0,
+    justifyContent: 'center',
+    paddingBottom: 4,
     backgroundColor: COLORS.bg,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
+  },
+  fixedLogo: { height: 65, width: 230 },
+  // Fixed icons (always visible)
+  fixedIcons: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 101,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING.base,
+    paddingBottom: 4,
   },
   fixedHeaderBtn: {
     width: 36,
@@ -237,27 +241,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: COLORS.primary,
   },
-  fixedLogo: { height: 65, width: 230 },
 
   // Video hero
   videoContainer: { width: SCREEN_WIDTH, height: VIDEO_HEIGHT, backgroundColor: '#000' },
   video: { width: '100%', height: '100%' },
   videoOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.25)' },
-
-  // Header on video (transparent)
-  headerOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: SPACING.base,
-    paddingBottom: 10,
-  },
-  headerBtn: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
-  headerBadge: { position: 'absolute', top: 4, right: 4, width: 8, height: 8, borderRadius: 4, backgroundColor: COLORS.primary },
 
   // Stats on video
   statsOverlay: {
