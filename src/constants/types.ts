@@ -142,6 +142,19 @@ export interface BaptemeBooking {
   qrCode: string;
 }
 
+// === MAP POIs ===
+export type PoiCategory = 'wc' | 'parking' | 'firstaid' | 'info' | 'accessibility' | 'water' | 'merch' | 'photo';
+
+export interface MapPoi {
+  id: string;
+  name: string;
+  category: PoiCategory;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
 // === NOTIFICATIONS ===
 export interface AppNotification {
   id: string;

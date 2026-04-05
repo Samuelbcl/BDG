@@ -1,4 +1,4 @@
-import type { ScheduleItem, Zone, Bapteme, CircuitZone } from './types';
+import type { ScheduleItem, Zone, Bapteme, CircuitZone, MapPoi } from './types';
 import { COLORS } from './theme';
 
 export const SCHEDULE: ScheduleItem[] = [
@@ -435,6 +435,36 @@ export const CIRCUIT_ZONES: CircuitZone[] = [
       { latitude: 50.4365, longitude: 5.9714 },
     ],
   },
+];
+
+// Practical POIs (toilets, parking, first aid, etc.)
+export const MAP_POIS: MapPoi[] = [
+  // WC
+  { id: 'wc-1', name: 'WC Paddock Nord', category: 'wc', coordinates: { latitude: 50.4379, longitude: 5.9718 } },
+  { id: 'wc-2', name: 'WC Food Court', category: 'wc', coordinates: { latitude: 50.4376, longitude: 5.9738 } },
+  { id: 'wc-3', name: 'WC Pit Lane', category: 'wc', coordinates: { latitude: 50.4369, longitude: 5.9718 } },
+  { id: 'wc-4', name: 'WC Zone Baptemes', category: 'wc', coordinates: { latitude: 50.4363, longitude: 5.9698 } },
+  // Parking
+  { id: 'park-1', name: 'Parking Principal P1', category: 'parking', coordinates: { latitude: 50.4388, longitude: 5.9710 } },
+  { id: 'park-2', name: 'Parking P2 Overflow', category: 'parking', coordinates: { latitude: 50.4390, longitude: 5.9740 } },
+  { id: 'park-3', name: 'Parking VIP', category: 'parking', coordinates: { latitude: 50.4385, longitude: 5.9700 } },
+  // First aid
+  { id: 'aid-1', name: 'Poste Secours Principal', category: 'firstaid', coordinates: { latitude: 50.4374, longitude: 5.9714 } },
+  { id: 'aid-2', name: 'Poste Secours Circuit', category: 'firstaid', coordinates: { latitude: 50.4366, longitude: 5.9708 } },
+  // Info
+  { id: 'info-1', name: 'Accueil / Info', category: 'info', coordinates: { latitude: 50.4382, longitude: 5.9715 } },
+  { id: 'info-2', name: 'Stand Info BDG', category: 'info', coordinates: { latitude: 50.4377, longitude: 5.9722 } },
+  // Accessibility
+  { id: 'pmr-1', name: 'Acces PMR Paddock', category: 'accessibility', coordinates: { latitude: 50.4374, longitude: 5.9720 } },
+  { id: 'pmr-2', name: 'Acces PMR Tribune', category: 'accessibility', coordinates: { latitude: 50.4367, longitude: 5.9712 } },
+  // Water
+  { id: 'water-1', name: 'Point d\'eau', category: 'water', coordinates: { latitude: 50.4376, longitude: 5.9728 } },
+  { id: 'water-2', name: 'Point d\'eau', category: 'water', coordinates: { latitude: 50.4371, longitude: 5.9710 } },
+  // Merch
+  { id: 'merch-1', name: 'Merch Officiel BDG', category: 'merch', coordinates: { latitude: 50.4380, longitude: 5.9728 } },
+  // Photo spot
+  { id: 'photo-1', name: 'Photo Spot Eau Rouge', category: 'photo', coordinates: { latitude: 50.4342, longitude: 5.9702 } },
+  { id: 'photo-2', name: 'Photo Spot Pit Lane', category: 'photo', coordinates: { latitude: 50.4370, longitude: 5.9715 } },
 ];
 
 export const BAPTEMES: Bapteme[] = [
