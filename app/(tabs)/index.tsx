@@ -73,7 +73,7 @@ export default function ActusScreen() {
   return (
     <View style={styles.container}>
       {/* Fixed header background + logo - appears on scroll */}
-      <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 15, opacity: headerOpacity }]}>
+      <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 5, opacity: headerOpacity }]}>
         <Image source={require('../../assets/logo bdg.png')} style={styles.fixedLogo} resizeMode="contain" />
       </Animated.View>
 
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
-  fixedLogo: { height: 65, width: 230 },
+  fixedLogo: { height: 50, width: 180 },
   // Fixed icons (always visible)
   fixedIcons: {
     position: 'absolute',
