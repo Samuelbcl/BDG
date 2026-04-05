@@ -3,14 +3,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../src/constants/theme';
 import { View } from 'react-native';
 
-type TabIconName = 'home' | 'map' | 'calendar' | 'ticket' | 'wallet';
+type TabIconName = 'actus' | 'ticket' | 'info' | 'map' | 'calendar' | 'menu';
 
 const ICON_MAP: Record<TabIconName, keyof typeof Ionicons.glyphMap> = {
-  home: 'home',
+  actus: 'newspaper',
+  ticket: 'ticket',
+  info: 'information-circle',
   map: 'map',
   calendar: 'calendar',
-  ticket: 'ticket',
-  wallet: 'wallet',
+  menu: 'ellipsis-horizontal',
 };
 
 function TabIcon({ name, color, focused }: { name: TabIconName; color: string; focused: boolean }) {
@@ -57,9 +58,27 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Accueil',
+          title: 'Actus',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="home" color={color} focused={focused} />
+            <TabIcon name="actus" color={color} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="ticket"
+        options={{
+          title: 'Ticket',
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="ticket" color={color} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="info"
+        options={{
+          title: 'Info',
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="info" color={color} focused={focused} />
           ),
         }}
       />
@@ -82,20 +101,11 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="tickets"
+        name="suite"
         options={{
-          title: 'Billets',
+          title: 'Suite',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="ticket" color={color} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="coins"
-        options={{
-          title: 'BDG Coins',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="wallet" color={color} focused={focused} />
+            <TabIcon name="menu" color={color} focused={focused} />
           ),
         }}
       />
