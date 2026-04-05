@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.bg,
   },
   logo: {
-    height: 36,
-    width: 160,
+    height: 55,
+    width: 200,
   },
 });
