@@ -3,30 +3,17 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Modal, Platform }
 import MapView from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONT_SIZES } from '../constants/theme';
-import { CIRCUIT_ZONES, MAP_POIS } from '../constants/data';
+import { CIRCUIT_ZONES } from '../constants/data';
 import { useAppStore } from '../utils/store';
 import MapUserLocation from './MapUserLocation';
 import MapZonePolygon from './MapZonePolygon';
 import MapZoneMarker from './MapZoneMarker';
-import MapPoiMarker, { POI_CONFIG } from './MapPoiMarker';
 import MapZoneSheet from './MapZoneSheet';
 import CircuitMap from './CircuitMap';
-import type { CircuitZone, PoiCategory } from '../constants/types';
+import type { CircuitZone } from '../constants/types';
+import mapStyle from '../constants/mapStyle.json';
 
 type ViewMode = 'map' | 'plan';
-
-// POI category labels for filter panel
-const POI_CATEGORIES: { key: PoiCategory; label: string }[] = [
-  { key: 'wc', label: 'WC' },
-  { key: 'parking', label: 'Parking' },
-  { key: 'firstaid', label: 'Secours' },
-  { key: 'info', label: 'Info' },
-  { key: 'accessibility', label: 'PMR' },
-  { key: 'water', label: 'Eau' },
-  { key: 'merch', label: 'Merch' },
-  { key: 'photo', label: 'Photo' },
-  { key: 'entrance', label: 'Entrees' },
-];
 
 // Zone type labels for filter panel
 const ZONE_CATEGORIES = [
@@ -56,13 +43,7 @@ export default function InteractiveMap() {
   const [visibleZoneTypes, setVisibleZoneTypes] = useState<Set<string>>(
     new Set(['corner', 'straight', 'paddock', 'service', 'grandstand', 'entrance', 'show']),
   );
-  const [visiblePois, setVisiblePois] = useState<Set<PoiCategory>>(
-    new Set(['wc', 'parking', 'firstaid', 'info', 'accessibility', 'water', 'merch', 'photo', 'entrance']),
-  );
-
   const userLocation = useAppStore((s) => s.userLocation);
-
-  // No track polyline needed for event zones
 
   // Filtered zones
   const filteredZones = useMemo(
@@ -75,12 +56,6 @@ export default function InteractiveMap() {
     [filteredZones],
   );
 
-  // Filtered POIs
-  const filteredPois = useMemo(
-    () => MAP_POIS.filter((p) => visiblePois.has(p.category)),
-    [visiblePois],
-  );
-
   const toggleZoneType = useCallback((type: string) => {
     setVisibleZoneTypes((prev) => {
       const next = new Set(prev);
@@ -90,23 +65,12 @@ export default function InteractiveMap() {
     });
   }, []);
 
-  const togglePoiCategory = useCallback((cat: PoiCategory) => {
-    setVisiblePois((prev) => {
-      const next = new Set(prev);
-      if (next.has(cat)) next.delete(cat);
-      else next.add(cat);
-      return next;
-    });
-  }, []);
-
   const showAll = useCallback(() => {
     setVisibleZoneTypes(new Set(['corner', 'straight', 'paddock', 'service', 'grandstand', 'entrance', 'show']));
-    setVisiblePois(new Set(['wc', 'parking', 'firstaid', 'info', 'accessibility', 'water', 'merch', 'photo', 'entrance']));
   }, []);
 
   const hideAll = useCallback(() => {
     setVisibleZoneTypes(new Set());
-    setVisiblePois(new Set());
   }, []);
 
   const handleZonePress = useCallback((zone: CircuitZone) => {
@@ -133,8 +97,8 @@ export default function InteractiveMap() {
   }, [userLocation]);
 
   // Count active filters
-  const activeFilterCount = visibleZoneTypes.size + visiblePois.size;
-  const totalFilters = 5 + POI_CATEGORIES.length; // 5 zone types + POI categories
+  const activeFilterCount = visibleZoneTypes.size;
+  const totalFilters = ZONE_CATEGORIES.length;
 
   return (
     <View style={styles.container}>
@@ -170,8 +134,11 @@ export default function InteractiveMap() {
             ref={mapRef}
             style={styles.map}
             mapType="hybrid"
+            customMapStyle={mapStyle}
             initialRegion={SPA_REGION}
             showsBuildings
+            showsPointsOfInterest={false}
+            showsTraffic={false}
             pitchEnabled
             rotateEnabled
             showsCompass
@@ -194,11 +161,6 @@ export default function InteractiveMap() {
                 isSelected={selectedZone?.id === zone.id}
                 onPress={handleZonePress}
               />
-            ))}
-
-            {/* POI markers */}
-            {filteredPois.map((poi) => (
-              <MapPoiMarker key={poi.id} poi={poi} />
             ))}
 
             {/* User location */}
@@ -273,29 +235,6 @@ export default function InteractiveMap() {
                   />
                 </TouchableOpacity>
               ))}
-              {/* POI categories */}
-              <Text style={[styles.filterSectionTitle, { marginTop: SPACING.lg }]}>Points d'interet</Text>
-              {POI_CATEGORIES.map((cat) => {
-                const config = POI_CONFIG[cat.key];
-                return (
-                  <TouchableOpacity
-                    key={cat.key}
-                    style={styles.filterItem}
-                    onPress={() => togglePoiCategory(cat.key)}
-                    activeOpacity={0.7}
-                  >
-                    <View style={[styles.filterIcon, { backgroundColor: config.bg + '20' }]}>
-                      <Ionicons name={config.icon} size={16} color={config.bg} />
-                    </View>
-                    <Text style={styles.filterItemLabel}>{cat.label}</Text>
-                    <Ionicons
-                      name={visiblePois.has(cat.key) ? 'checkbox' : 'square-outline'}
-                      size={22}
-                      color={visiblePois.has(cat.key) ? COLORS.primary : COLORS.textMuted}
-                    />
-                  </TouchableOpacity>
-                );
-              })}
             </ScrollView>
 
             {/* Apply button */}
