@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.base,
-    paddingBottom: 2,
+    paddingBottom: 0,
     backgroundColor: COLORS.bg,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: COLORS.primary,
   },
-  fixedLogo: { height: 59, width: 210 },
+  fixedLogo: { height: 65, width: 230 },
 
   // Video hero
   videoContainer: { width: SCREEN_WIDTH, height: VIDEO_HEIGHT, backgroundColor: '#000' },
