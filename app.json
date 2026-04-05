@@ -59,6 +59,11 @@
         }
       ]
     ],
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./src/assets/icon.png"
+    },
     "extra": {
       "router": {
         "origin": false
