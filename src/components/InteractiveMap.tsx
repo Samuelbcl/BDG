@@ -51,30 +51,17 @@ export default function InteractiveMap() {
   );
   const userLocation = useAppStore((s) => s.userLocation);
 
-  // Lock map to event area - snap back if user scrolls too far
+  // Lock map to event area - snap back only if user goes way too far
   const handleRegionChange = useCallback((region: { latitude: number; longitude: number; latitudeDelta: number; longitudeDelta: number }) => {
-    let needsSnap = false;
-    const snapped = { ...region };
+    const margin = 0.005;
+    const tooFar =
+      region.latitude > MAP_BOUNDARIES.northEast.latitude + margin ||
+      region.latitude < MAP_BOUNDARIES.southWest.latitude - margin ||
+      region.longitude > MAP_BOUNDARIES.northEast.longitude + margin ||
+      region.longitude < MAP_BOUNDARIES.southWest.longitude - margin;
 
-    if (region.latitude > MAP_BOUNDARIES.northEast.latitude) {
-      snapped.latitude = MAP_BOUNDARIES.northEast.latitude;
-      needsSnap = true;
-    }
-    if (region.latitude < MAP_BOUNDARIES.southWest.latitude) {
-      snapped.latitude = MAP_BOUNDARIES.southWest.latitude;
-      needsSnap = true;
-    }
-    if (region.longitude > MAP_BOUNDARIES.northEast.longitude) {
-      snapped.longitude = MAP_BOUNDARIES.northEast.longitude;
-      needsSnap = true;
-    }
-    if (region.longitude < MAP_BOUNDARIES.southWest.longitude) {
-      snapped.longitude = MAP_BOUNDARIES.southWest.longitude;
-      needsSnap = true;
-    }
-
-    if (needsSnap) {
-      mapRef.current?.animateToRegion(snapped, 200);
+    if (tooFar) {
+      mapRef.current?.animateToRegion(SPA_REGION, 300);
     }
   }, []);
 
@@ -108,10 +95,6 @@ export default function InteractiveMap() {
 
   const handleZonePress = useCallback((zone: CircuitZone) => {
     setSelectedZone(zone);
-    mapRef.current?.animateToRegion(
-      { ...zone.coordinates, latitudeDelta: 0.004, longitudeDelta: 0.006 },
-      500,
-    );
   }, []);
 
   const handleCloseSheet = useCallback(() => {
@@ -176,7 +159,7 @@ export default function InteractiveMap() {
             rotateEnabled
             showsCompass
             showsScale
-            minZoomLevel={15}
+            minZoomLevel={14}
             maxZoomLevel={20}
             showsUserLocation={false}
             showsMyLocationButton={false}
