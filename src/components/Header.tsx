@@ -24,7 +24,7 @@ export default function Header() {
 
       {/* Logo */}
       <Image
-        source={require('../../assets/logo-bdg.webp')}
+        source={require('../../assets/logo bdg.png')}
         style={styles.logo}
         resizeMode="contain"
       />

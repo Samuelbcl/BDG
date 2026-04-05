@@ -78,7 +78,7 @@ export default function ActusScreen() {
           <Ionicons name="notifications-outline" size={22} color={COLORS.text} />
           {unreadCount > 0 && <View style={styles.fixedBadge} />}
         </TouchableOpacity>
-        <Image source={require('../../assets/logo-bdg.webp')} style={styles.fixedLogo} resizeMode="contain" />
+        <Image source={require('../../assets/logo bdg.png')} style={styles.fixedLogo} resizeMode="contain" />
         <TouchableOpacity style={styles.fixedHeaderBtn} onPress={() => router.push('/search')}>
           <Ionicons name="search-outline" size={22} color={COLORS.text} />
         </TouchableOpacity>
