@@ -175,7 +175,6 @@ export default function InteractiveMap() {
               <MapZoneMarker
                 key={zone.id}
                 zone={zone}
-                isSelected={selectedZone?.id === zone.id}
                 onPress={handleZonePress}
               />
             ))}

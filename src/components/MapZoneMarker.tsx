@@ -1,11 +1,10 @@
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
 import type { CircuitZone } from '../constants/types';
 
 interface Props {
   zone: CircuitZone;
-  isSelected: boolean;
   onPress: (zone: CircuitZone) => void;
 }
 
@@ -19,20 +18,16 @@ const ICON_MAP: Record<CircuitZone['type'], keyof typeof Ionicons.glyphMap> = {
   show: 'flame',
 };
 
-export default function MapZoneMarker({ zone, isSelected, onPress }: Props) {
+export default function MapZoneMarker({ zone, onPress }: Props) {
   return (
     <Marker
       coordinate={zone.coordinates}
       anchor={{ x: 0.5, y: 0.5 }}
-      tracksViewChanges={Platform.OS === 'ios' ? false : undefined}
+      tracksViewChanges={false}
       stopPropagation
       onPress={() => onPress(zone)}
     >
-      <View style={[
-        styles.pin,
-        { backgroundColor: zone.color },
-        isSelected && styles.pinSelected,
-      ]}>
+      <View style={[styles.pin, { backgroundColor: zone.color }]}>
         <Ionicons name={ICON_MAP[zone.type]} size={14} color="#FFF" />
       </View>
     </Marker>
@@ -53,13 +48,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 3,
     elevation: 5,
-  },
-  pinSelected: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    borderWidth: 3,
-    shadowOpacity: 0.5,
-    elevation: 8,
   },
 });
