@@ -73,7 +73,7 @@ export default function ActusScreen() {
   return (
     <View style={styles.container}>
       {/* Fixed header bar - appears on scroll */}
-      <Animated.View style={[styles.fixedHeader, { paddingTop: insets.top - 3, opacity: headerOpacity }]}>
+      <Animated.View style={[styles.fixedHeader, { paddingTop: insets.top - 10, opacity: headerOpacity }]}>
         <TouchableOpacity style={styles.fixedHeaderBtn} onPress={() => router.push('/notifications')}>
           <Ionicons name="notifications-outline" size={22} color={COLORS.text} />
           {unreadCount > 0 && <View style={styles.fixedBadge} />}
