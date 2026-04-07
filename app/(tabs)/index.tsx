@@ -9,7 +9,7 @@ import { useAppStore } from '../../src/utils/store';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const VIDEO_HEIGHT = 350;
-const EVENT_DATE = new Date('2026-04-05T09:00:00+02:00');
+const EVENT_DATE = new Date('2027-03-28T09:00:00+02:00');
 const TICKET_URL = 'https://lesbruleursdegommes.com/billetterie/';
 
 const FEATURES = [
@@ -129,29 +129,11 @@ export default function ActusScreen() {
             <Ionicons name={isPlaying ? 'pause' : 'play'} size={16} color="#FFF" />
           </TouchableOpacity>
 
-          {/* Stats overlay */}
-          <View style={styles.statsOverlay}>
-            <View style={styles.statItem}>
-              <Text style={styles.statPlus}>+</Text>
-              <Text style={styles.statNumber}>1000</Text>
-              <Text style={styles.statLabel}>Voitures sportives selectionnees</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statPlus}>+</Text>
-              <Text style={styles.statNumber}>75</Text>
-              <Text style={styles.statLabel}>Stands professionnels</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statPlus}>+</Text>
-              <Text style={styles.statNumber}>20000</Text>
-              <Text style={styles.statLabel}>Visiteurs</Text>
-            </View>
-          </View>
         </View>
 
         {/* Countdown */}
         <View style={styles.countdownCard}>
-          <Text style={styles.countdownTitle}>BDG MOTOR SHOW 2026</Text>
+          <Text style={styles.countdownTitle}>BDG MOTOR SHOW 2027</Text>
           {countdown.isLive ? (
             <View style={styles.liveRow}>
               <View style={styles.liveDot} />
@@ -186,6 +168,22 @@ export default function ActusScreen() {
             </View>
           </View>
         </TouchableOpacity>
+
+        {/* Stats */}
+        <View style={styles.statsRow}>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>1000+</Text>
+            <Text style={styles.statLabel}>Voitures sportives</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>75+</Text>
+            <Text style={styles.statLabel}>Stands professionnels</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>20000+</Text>
+            <Text style={styles.statLabel}>Visiteurs</Text>
+          </View>
+        </View>
 
         {/* Features Grid */}
         <View style={styles.featuresGrid}>
@@ -278,20 +276,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  // Stats on video
-  statsOverlay: {
-    position: 'absolute',
-    bottom: 16,
-    left: 0,
-    right: 0,
+  // Stats row
+  statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingHorizontal: SPACING.base,
+    marginHorizontal: SPACING.base,
+    marginTop: SPACING.base,
+    paddingVertical: SPACING.base,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 8,
   },
   statItem: { alignItems: 'center' },
-  statPlus: { fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: '400', position: 'absolute', top: -2, left: -10 },
-  statNumber: { fontSize: 26, fontWeight: '900', color: '#FFF' },
-  statLabel: { fontSize: 9, color: 'rgba(255,255,255,0.8)', fontWeight: '500', textAlign: 'center', maxWidth: 100 },
+  statNumber: { fontSize: 20, fontWeight: '900', color: COLORS.text },
+  statLabel: { fontSize: 9, color: COLORS.textMuted, fontWeight: '500', textAlign: 'center', maxWidth: 100, marginTop: 2 },
 
   // Countdown
   countdownCard: {
