@@ -9,13 +9,13 @@ interface Props {
 }
 
 const ICON_MAP: Record<CircuitZone['type'], keyof typeof Ionicons.glyphMap> = {
-  corner: 'flag',
-  straight: 'arrow-forward',
-  paddock: 'car-sport',
-  service: 'storefront',
-  grandstand: 'eye',
-  entrance: 'enter',
-  show: 'flame',
+  corner: 'flag-outline',
+  straight: 'arrow-forward-outline',
+  paddock: 'car-sport-outline',
+  service: 'construct-outline',
+  grandstand: 'people-outline',
+  entrance: 'log-in-outline',
+  show: 'bicycle-outline',
 };
 
 export default function MapZoneMarker({ zone, onPress }: Props) {

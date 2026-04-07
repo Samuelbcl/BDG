@@ -1,11 +1,11 @@
 import { useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Animated, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image, StyleSheet, Animated, Dimensions, ImageSourcePropType } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS, SPACING, RADIUS, FONT_SIZES } from '../constants/theme';
+import { COLORS, SPACING, FONT_SIZES } from '../constants/theme';
 import type { CircuitZone } from '../constants/types';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
-const SHEET_HEIGHT = 320;
+const SHEET_HEIGHT = 420;
 
 interface Props {
   zone: CircuitZone | null;
@@ -22,6 +22,16 @@ const TYPE_LABELS: Record<CircuitZone['type'], string> = {
   show: 'Show',
 };
 
+// Map zone IDs to images
+const ZONE_IMAGES: Record<string, ImageSourcePropType> = {
+  'paddock-f1': require('../../assets/prog-trackday.jpg'),
+  'paddock-drift': require('../../assets/prog-drift.jpg'),
+  'paddock-violet': require('../../assets/prog-parade.jpg'),
+  'show-fmx': require('../../assets/prog-fmx.jpg'),
+  'pit-brasserie': require('../../assets/prog-dragster.jpg'),
+  'fan-zone': require('../../assets/prog-pitwalk.jpg'),
+};
+
 export default function MapZoneSheet({ zone, onClose }: Props) {
   const translateY = useRef(new Animated.Value(SHEET_HEIGHT)).current;
 
@@ -36,58 +46,53 @@ export default function MapZoneSheet({ zone, onClose }: Props) {
 
   if (!zone) return null;
 
+  const image = ZONE_IMAGES[zone.id];
+  const allItems = [
+    ...zone.details,
+    ...(zone.stands || []),
+  ];
+
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY }] }]}>
-      {/* Handle bar */}
       <View style={styles.handleBar} />
 
-      {/* Header */}
-      <View style={styles.header}>
+      {/* Close button */}
+      <TouchableOpacity onPress={onClose} hitSlop={12} style={styles.closeBtn}>
+        <Ionicons name="close" size={20} color={COLORS.textMuted} />
+      </TouchableOpacity>
+
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+        {/* Image */}
+        {image && (
+          <Image source={image} style={styles.zoneImage} resizeMode="cover" />
+        )}
+
+        {/* Type badge */}
         <View style={styles.typeTag}>
           <Text style={styles.typeText}>{TYPE_LABELS[zone.type]}</Text>
         </View>
-        <TouchableOpacity onPress={onClose} hitSlop={12} style={styles.closeBtn}>
-          <Ionicons name="close" size={20} color={COLORS.textMuted} />
-        </TouchableOpacity>
-      </View>
 
-      <Text style={styles.name}>{zone.name}</Text>
-      <Text style={styles.description}>{zone.description}</Text>
+        {/* Name & description */}
+        <Text style={styles.name}>{zone.name}</Text>
+        <Text style={styles.description}>{zone.description}</Text>
 
-      {/* Details */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.detailsContainer}
-      >
-        {zone.details.map((detail, i) => (
-          <View key={i} style={styles.detailRow}>
-            <View style={styles.detailDot} />
-            <Text style={styles.detailText}>{detail}</Text>
-          </View>
+        {/* Divider */}
+        <View style={styles.divider} />
+
+        {/* Details list */}
+        {allItems.map((item, i) => (
+          <Text key={i} style={styles.detailText}>•  {item}</Text>
         ))}
 
-        {/* Cars at this zone */}
+        {/* Cars */}
         {zone.cars && zone.cars.length > 0 && (
-          <View style={styles.extraSection}>
-            <Text style={styles.extraTitle}>
-              <Ionicons name="car-sport" size={13} color={COLORS.text} /> Voitures
-            </Text>
+          <>
+            <View style={styles.divider} />
+            <Text style={styles.sectionLabel}>VOITURES</Text>
             {zone.cars.map((car, i) => (
-              <Text key={i} style={styles.extraItem}>{car}</Text>
+              <Text key={i} style={styles.detailText}>•  {car}</Text>
             ))}
-          </View>
-        )}
-
-        {/* Stands at this zone */}
-        {zone.stands && zone.stands.length > 0 && (
-          <View style={styles.extraSection}>
-            <Text style={styles.extraTitle}>
-              <Ionicons name="storefront" size={13} color={COLORS.text} /> Stands
-            </Text>
-            {zone.stands.map((stand, i) => (
-              <Text key={i} style={styles.extraItem}>{stand}</Text>
-            ))}
-          </View>
+          </>
         )}
       </ScrollView>
     </Animated.View>
@@ -102,9 +107,8 @@ const styles = StyleSheet.create({
     right: 0,
     height: SHEET_HEIGHT,
     backgroundColor: COLORS.bg,
-    borderTopLeftRadius: RADIUS.xxl,
-    borderTopRightRadius: RADIUS.xxl,
-    paddingHorizontal: SPACING.xl,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     paddingTop: SPACING.md,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -4 },
@@ -118,84 +122,72 @@ const styles = StyleSheet.create({
     height: 4,
     borderRadius: 2,
     backgroundColor: COLORS.border,
-    marginBottom: SPACING.md,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 6,
-  },
-  typeTag: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 6,
-    backgroundColor: '#111',
-  },
-  typeText: {
-    fontSize: FONT_SIZES.xs,
-    fontWeight: '800',
-    letterSpacing: 0.5,
-    textTransform: 'uppercase',
-    color: '#FFF',
+    marginBottom: SPACING.sm,
   },
   closeBtn: {
+    position: 'absolute',
+    top: 14,
+    right: 16,
     width: 32,
     height: 32,
     borderRadius: 16,
     backgroundColor: COLORS.surface,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 10,
+  },
+  scrollContent: {
+    paddingHorizontal: SPACING.xl,
+    paddingBottom: 40,
+  },
+  zoneImage: {
+    width: '100%',
+    height: 140,
+    borderRadius: 10,
+    marginBottom: SPACING.md,
+  },
+  typeTag: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 6,
+    backgroundColor: '#111',
+    marginBottom: 6,
+  },
+  typeText: {
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+    color: '#FFF',
   },
   name: {
-    fontSize: FONT_SIZES.xxl,
-    fontWeight: '800',
+    fontSize: 20,
+    fontWeight: '900',
     color: COLORS.text,
     marginBottom: 4,
   },
   description: {
-    fontSize: FONT_SIZES.base,
+    fontSize: 13,
     color: COLORS.textSecondary,
     marginBottom: SPACING.md,
   },
-  detailsContainer: {
-    paddingBottom: 40,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 10,
-    marginBottom: 8,
-  },
-  detailDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    marginTop: 5,
-    backgroundColor: '#111',
+  divider: {
+    height: 1,
+    backgroundColor: COLORS.border,
+    marginBottom: SPACING.md,
   },
   detailText: {
-    flex: 1,
-    fontSize: FONT_SIZES.md,
+    fontSize: 13,
     color: COLORS.text,
-    lineHeight: 18,
+    lineHeight: 20,
+    marginBottom: 3,
   },
-  extraSection: {
-    marginTop: SPACING.md,
-    paddingTop: SPACING.md,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-  },
-  extraTitle: {
-    fontSize: FONT_SIZES.lg,
-    fontWeight: '700',
-    color: COLORS.text,
-    marginBottom: 8,
-  },
-  extraItem: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    marginBottom: 4,
-    paddingLeft: 16,
+  sectionLabel: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: COLORS.textMuted,
+    letterSpacing: 1,
+    marginBottom: 6,
   },
 });

@@ -14,10 +14,10 @@ import mapStyle from '../constants/mapStyle.json';
 
 const ZONE_CATEGORIES = [
   { key: 'paddock' as const, label: 'Paddocks', icon: 'car-sport-outline' as const },
-  { key: 'service' as const, label: 'Stands & Services', icon: 'storefront-outline' as const },
-  { key: 'grandstand' as const, label: 'Tribunes', icon: 'eye-outline' as const },
-  { key: 'show' as const, label: 'Shows', icon: 'flame-outline' as const },
-  { key: 'entrance' as const, label: 'Entrees', icon: 'enter-outline' as const },
+  { key: 'service' as const, label: 'Stands & Services', icon: 'construct-outline' as const },
+  { key: 'grandstand' as const, label: 'Tribunes', icon: 'people-outline' as const },
+  { key: 'show' as const, label: 'Shows', icon: 'bicycle-outline' as const },
+  { key: 'entrance' as const, label: 'Entrees', icon: 'log-in-outline' as const },
 ];
 
 const SPA_REGION = {
