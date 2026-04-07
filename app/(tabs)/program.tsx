@@ -70,9 +70,14 @@ export default function ProgramScreen() {
       <View style={[styles.header, { paddingTop: insets.top }]}>
         <View style={{ width: 36 }} />
         <Text style={styles.headerTitle}>Programme</Text>
-        <TouchableOpacity style={styles.headerBtn} onPress={() => router.push('/search')}>
-          <Ionicons name="search-outline" size={22} color="#FFF" />
-        </TouchableOpacity>
+        <View style={styles.headerRight}>
+          <TouchableOpacity style={styles.headerBtn} onPress={() => {}}>
+            <Ionicons name="options-outline" size={22} color="#FFF" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.headerBtn} onPress={() => router.push('/search')}>
+            <Ionicons name="search-outline" size={22} color="#FFF" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
@@ -109,13 +114,14 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#000',
     paddingHorizontal: SPACING.base,
-    paddingBottom: 14,
+    paddingBottom: 6,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
   headerBtn: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
-  headerTitle: { fontSize: 18, fontWeight: '800', color: '#FFF', letterSpacing: 1 },
+  headerRight: { flexDirection: 'row', gap: 4 },
+  headerTitle: { fontSize: 18, fontWeight: '800', color: '#FFF', letterSpacing: 1, marginBottom: 6 },
 
   scrollContent: { padding: SPACING.base, paddingBottom: 40 },
 
