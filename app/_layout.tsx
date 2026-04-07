@@ -6,7 +6,7 @@ import OfflineBanner from '../src/components/OfflineBanner';
 export default function RootLayout() {
   return (
     <>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
       <OfflineBanner />
       <Stack
         screenOptions={{

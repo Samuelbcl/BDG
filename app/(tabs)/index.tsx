@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Image, ImageBackground, StyleSheet, Dimensions, Linking, Animated, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { Video, ResizeMode } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -88,6 +89,7 @@ export default function ActusScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" />
       {/* Fixed header bg + logo */}
       <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 7, opacity: headerOpacity }]}>
         <Image source={require('../../assets/logo bdg.png')} style={styles.fixedLogo} resizeMode="contain" />

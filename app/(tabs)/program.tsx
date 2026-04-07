@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, ImageSourcePropType, Modal, Switch, Platform } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -118,6 +119,7 @@ export default function ProgramScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <View style={[styles.header, { paddingTop: insets.top }]}>
         <View style={{ width: 76 }} />
         <Text style={styles.headerTitle}>Programme</Text>
