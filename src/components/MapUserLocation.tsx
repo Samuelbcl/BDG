@@ -8,7 +8,7 @@ export default function MapUserLocation() {
   const pulseAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.loop(
+    const anim = Animated.loop(
       Animated.sequence([
         Animated.timing(pulseAnim, {
           toValue: 1,
@@ -22,7 +22,9 @@ export default function MapUserLocation() {
           useNativeDriver: true,
         }),
       ]),
-    ).start();
+    );
+    anim.start();
+    return () => anim.stop();
   }, [pulseAnim]);
 
   if (!location) return null;

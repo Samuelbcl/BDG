@@ -12,7 +12,7 @@ const ICON_MAP: Record<TabIconName, keyof typeof Ionicons.glyphMap> = {
   menu: 'ellipsis-horizontal',
 };
 
-function TabIcon({ name, color }: { name: TabIconName; color: string; focused: boolean }) {
+function TabIcon({ name, color }: { name: TabIconName; color: string }) {
   return (
     <Ionicons name={ICON_MAP[name]} size={22} color={color} />
   );
@@ -44,8 +44,8 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Actu',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="actus" color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <TabIcon name="actus" color={color} />
           ),
         }}
       />
@@ -53,8 +53,8 @@ export default function TabsLayout() {
         name="map"
         options={{
           title: 'Plan',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="map" color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <TabIcon name="map" color={color} />
           ),
         }}
       />
@@ -62,8 +62,8 @@ export default function TabsLayout() {
         name="program"
         options={{
           title: 'Programme',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="calendar" color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <TabIcon name="calendar" color={color} />
           ),
         }}
       />
@@ -71,8 +71,8 @@ export default function TabsLayout() {
         name="info"
         options={{
           title: 'Info',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="info" color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <TabIcon name="info" color={color} />
           ),
         }}
       />
@@ -80,8 +80,8 @@ export default function TabsLayout() {
         name="suite"
         options={{
           title: 'Suite',
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="menu" color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <TabIcon name="menu" color={color} />
           ),
         }}
       />

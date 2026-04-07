@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { User, Ticket, CoinTransaction, AppNotification, Car } from '../constants/types';
+import type { User, Ticket, CoinTransaction, AppNotification } from '../constants/types';
 
 interface AppState {
   // Auth

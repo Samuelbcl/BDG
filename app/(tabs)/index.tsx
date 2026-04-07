@@ -54,6 +54,7 @@ export default function ActusScreen() {
   const router = useRouter();
   const unreadCount = useAppStore((s) => s.unreadCount);
   const videoRef = useRef<Video>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [showHeader, setShowHeader] = useState(false);
   const headerOpacity = useRef(new Animated.Value(0)).current;
 
@@ -100,7 +101,7 @@ export default function ActusScreen() {
             source={require('../../assets/hero-video.mp4')}
             style={styles.video}
             resizeMode={ResizeMode.COVER}
-            shouldPlay
+            shouldPlay={isPlaying}
             isLooping
             isMuted
             onPlaybackStatusUpdate={(status) => {
@@ -111,6 +112,22 @@ export default function ActusScreen() {
             ref={videoRef}
           />
           <View style={styles.videoOverlay} />
+
+          {/* Play/Pause button */}
+          <TouchableOpacity
+            style={styles.playPauseBtn}
+            onPress={() => {
+              if (isPlaying) {
+                videoRef.current?.pauseAsync();
+              } else {
+                videoRef.current?.playAsync();
+              }
+              setIsPlaying(!isPlaying);
+            }}
+            activeOpacity={0.7}
+          >
+            <Ionicons name={isPlaying ? 'pause' : 'play'} size={16} color="#FFF" />
+          </TouchableOpacity>
 
           {/* Stats overlay */}
           <View style={styles.statsOverlay}>
@@ -246,6 +263,19 @@ const styles = StyleSheet.create({
   videoContainer: { width: SCREEN_WIDTH, height: VIDEO_HEIGHT, backgroundColor: '#000' },
   video: { width: '100%', height: '100%' },
   videoOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.25)' },
+
+  // Play/Pause
+  playPauseBtn: {
+    position: 'absolute',
+    bottom: 50,
+    right: 12,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
   // Stats on video
   statsOverlay: {

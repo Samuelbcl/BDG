@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, ImageSourcePropType, Modal, Switch, Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -94,11 +95,19 @@ export default function ProgramScreen() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [showFavOnly, setShowFavOnly] = useState(false);
 
+  // Load favorites from storage
+  useEffect(() => {
+    AsyncStorage.getItem('program_favorites').then((val) => {
+      if (val) setFavorites(new Set(JSON.parse(val)));
+    });
+  }, []);
+
   const toggleFavorite = useCallback((id: string) => {
     setFavorites((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
+      AsyncStorage.setItem('program_favorites', JSON.stringify([...next]));
       return next;
     });
   }, []);
