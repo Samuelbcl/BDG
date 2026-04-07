@@ -323,16 +323,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   ctaBg: {
-    width: '100%',
     height: 180,
     justifyContent: 'flex-end',
     padding: SPACING.xl,
   },
-  ctaBgImage: { borderRadius: 12 },
+  ctaBgImage: {},
   ctaOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0,0,0,0.45)',
-    borderRadius: 12,
   },
   ctaTitle: { fontSize: 22, fontWeight: '900', color: '#FFF', letterSpacing: 0.5 },
   ctaSub: { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 4 },
