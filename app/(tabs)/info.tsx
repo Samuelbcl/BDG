@@ -1,24 +1,23 @@
+import { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as WebBrowser from 'expo-web-browser';
+import { useFocusEffect } from 'expo-router';
+import { COLORS } from '../../src/constants/theme';
 
 const SITE_URL = 'https://lesbruleursdegommes.com/';
 
 export default function InfoScreen() {
-  const insets = useSafeAreaInsets();
-
-  return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <WebView
-        source={{ uri: SITE_URL }}
-        style={styles.webview}
-        startInLoadingState
-      />
-    </View>
+  useFocusEffect(
+    useCallback(() => {
+      WebBrowser.openBrowserAsync(SITE_URL, {
+        presentationStyle: WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+      });
+    }, []),
   );
+
+  return <View style={styles.container} />;
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#000' },
-  webview: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.bg },
 });

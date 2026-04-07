@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.biancolastudio.bdg",
@@ -60,6 +62,7 @@
           "locationWhenInUsePermission": "L'app utilise votre position pour la carte interactive."
         }
       ],
+      "expo-web-browser"
     ],
     "web": {
       "bundler": "metro",
