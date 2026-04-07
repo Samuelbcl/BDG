@@ -73,7 +73,7 @@ export default function ActusScreen() {
   return (
     <View style={styles.container}>
       {/* Fixed header background + logo - appears on scroll */}
-      <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 5, opacity: headerOpacity }]}>
+      <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 12, opacity: headerOpacity }]}>
         <Image source={require('../../assets/logo bdg.png')} style={styles.fixedLogo} resizeMode="contain" />
       </Animated.View>
 
@@ -197,7 +197,7 @@ export default function ActusScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
-  scrollContent: { paddingBottom: 120 },
+  scrollContent: { paddingBottom: 20 },
 
   // Fixed header bg + logo (appears on scroll)
   fixedHeaderBg: {
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
-  fixedLogo: { height: 50, width: 180 },
+  fixedLogo: { height: 40, width: 150 },
   // Fixed icons (always visible)
   fixedIcons: {
     position: 'absolute',
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
 
   // Follow
   followTitle: { fontSize: FONT_SIZES.xl, fontWeight: '900', color: COLORS.text, marginLeft: SPACING.base, marginBottom: SPACING.md },
-  socialRow: { flexDirection: 'row', gap: 12, paddingHorizontal: SPACING.base, marginBottom: SPACING.xxl },
+  socialRow: { flexDirection: 'row', gap: 12, paddingHorizontal: SPACING.base, marginBottom: SPACING.base },
   socialBtn: {
     width: 46,
     height: 46,
