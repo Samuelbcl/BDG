@@ -141,17 +141,25 @@ export default function ActusScreen() {
             </View>
           ) : (
             <View style={styles.countdownRow}>
-              {[
-                { n: countdown.days, l: 'JOURS' },
-                { n: countdown.hours, l: 'HEURES' },
-                { n: countdown.minutes, l: 'MIN.' },
-                { n: countdown.seconds, l: 'SEC.' },
-              ].map((item, i) => (
-                <View key={i} style={styles.countdownBlock}>
-                  <Text style={styles.countdownNumber}>{String(item.n).padStart(2, '0')}</Text>
-                  <Text style={styles.countdownUnit}>{item.l}</Text>
-                </View>
-              ))}
+              <View style={styles.countdownBlock}>
+                <Text style={styles.countdownNumber}>{String(countdown.days).padStart(2, '0')}</Text>
+                <Text style={styles.countdownUnit}>Jours</Text>
+              </View>
+              <Text style={styles.countdownSep}>:</Text>
+              <View style={styles.countdownBlock}>
+                <Text style={styles.countdownNumber}>{String(countdown.hours).padStart(2, '0')}</Text>
+                <Text style={styles.countdownUnit}>Heures</Text>
+              </View>
+              <Text style={styles.countdownSep}>:</Text>
+              <View style={styles.countdownBlock}>
+                <Text style={styles.countdownNumber}>{String(countdown.minutes).padStart(2, '0')}</Text>
+                <Text style={styles.countdownUnit}>Min.</Text>
+              </View>
+              <Text style={styles.countdownSep}>:</Text>
+              <View style={styles.countdownBlock}>
+                <Text style={styles.countdownNumber}>{String(countdown.seconds).padStart(2, '0')}</Text>
+                <Text style={styles.countdownUnit}>Sec.</Text>
+              </View>
             </View>
           )}
         </View>
@@ -293,20 +301,19 @@ const styles = StyleSheet.create({
 
   // Countdown
   countdownCard: {
-    backgroundColor: COLORS.surface,
+    backgroundColor: '#000',
     marginHorizontal: SPACING.base,
     marginTop: SPACING.base,
-    borderRadius: RADIUS.sm,
+    borderRadius: 12,
     padding: SPACING.xl,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: COLORS.border,
   },
-  countdownTitle: { fontSize: FONT_SIZES.lg, fontWeight: '800', color: COLORS.text, letterSpacing: 1, marginBottom: SPACING.md },
-  countdownRow: { flexDirection: 'row', gap: SPACING.lg },
-  countdownBlock: { alignItems: 'center', minWidth: 56 },
-  countdownNumber: { fontSize: 36, fontWeight: '900', color: COLORS.primary, fontVariant: ['tabular-nums'] },
-  countdownUnit: { fontSize: 9, fontWeight: '700', color: COLORS.textMuted, letterSpacing: 1, marginTop: 2 },
+  countdownTitle: { fontSize: 11, fontWeight: '600', color: 'rgba(255,255,255,0.5)', letterSpacing: 3, marginBottom: SPACING.md },
+  countdownRow: { flexDirection: 'row', alignItems: 'center' },
+  countdownBlock: { alignItems: 'center', minWidth: 60 },
+  countdownNumber: { fontSize: 40, fontWeight: '200', color: '#FFF', fontVariant: ['tabular-nums'], letterSpacing: -1 },
+  countdownUnit: { fontSize: 8, fontWeight: '600', color: 'rgba(255,255,255,0.4)', letterSpacing: 2, marginTop: 4, textTransform: 'uppercase' },
+  countdownSep: { fontSize: 30, fontWeight: '200', color: 'rgba(255,255,255,0.3)', marginHorizontal: 4, marginBottom: 14 },
   liveRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   liveDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: COLORS.primary },
   liveText: { fontSize: FONT_SIZES.xxl, fontWeight: '900', color: COLORS.primary },
