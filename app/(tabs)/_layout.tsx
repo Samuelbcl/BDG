@@ -77,6 +77,8 @@ export default function TabsLayout() {
             e.preventDefault();
             WebBrowser.openBrowserAsync(SITE_URL, {
               presentationStyle: WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+              controlsColor: '#FFFFFF',
+              toolbarColor: '#000000',
             });
           },
         }}
