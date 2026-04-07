@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
 
   recenterBtn: {
     position: 'absolute',
-    bottom: 340,
+    top: 110,
     right: SPACING.base,
     width: 40,
     height: 40,
