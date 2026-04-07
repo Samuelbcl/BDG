@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Switch, Linking } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { setStatusBarStyle } from 'expo-status-bar';
+import { useFocusEffect } from 'expo-router';
+import { useState, useCallback } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -19,13 +20,14 @@ type Section = null | 'partners' | 'settings';
 export default function SuiteScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+
+  useFocusEffect(useCallback(() => { setStatusBarStyle('light'); }, []));
   const [openSection, setOpenSection] = useState<Section>(null);
   const [notifs, setNotifs] = useState(true);
   const [location, setLocation] = useState(true);
 
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
       {/* Header noir */}
       <View style={[styles.header, { paddingTop: insets.top }]}>
         <View style={{ width: 36 }} />

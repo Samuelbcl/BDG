@@ -1,11 +1,14 @@
+import { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { setStatusBarStyle } from 'expo-status-bar';
+import { useFocusEffect } from 'expo-router';
 import InteractiveMap from '../../src/components/InteractiveMap';
 
 export default function MapScreen() {
+  useFocusEffect(useCallback(() => { setStatusBarStyle('light'); }, []));
+
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
       <InteractiveMap />
     </View>
   );

@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, ImageSourcePropType, Modal, Switch, Platform } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { setStatusBarStyle } from 'expo-status-bar';
+import { useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -92,6 +93,8 @@ const PROGRAM: ProgramItem[] = [
 export default function ProgramScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+
+  useFocusEffect(useCallback(() => { setStatusBarStyle('light'); }, []));
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [filterOpen, setFilterOpen] = useState(false);
   const [showFavOnly, setShowFavOnly] = useState(false);
@@ -119,7 +122,6 @@ export default function ProgramScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
       <View style={[styles.header, { paddingTop: insets.top }]}>
         <View style={{ width: 76 }} />
         <Text style={styles.headerTitle}>Programme</Text>
