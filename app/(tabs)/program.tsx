@@ -1,13 +1,18 @@
+import { useState, useCallback } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, ImageSourcePropType } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { COLORS, SPACING, FONT_SIZES } from '../../src/constants/theme';
 
+type ImageAlign = 'center' | 'left' | 'right';
+
 interface ProgramItem {
+  id: string;
   title: string;
   location: string;
   image: ImageSourcePropType;
+  imageAlign?: ImageAlign;
   events: { times: string; name: string }[];
   extra?: string;
   extraEvents?: { times: string; name: string }[];
@@ -15,6 +20,7 @@ interface ProgramItem {
 
 const PROGRAM: ProgramItem[] = [
   {
+    id: 'trackday',
     title: 'TRACK DAY',
     location: 'CIRCUIT',
     image: require('../../assets/prog-trackday.jpg'),
@@ -24,6 +30,7 @@ const PROGRAM: ProgramItem[] = [
     ],
   },
   {
+    id: 'parade',
     title: 'PARADE SUPER CAR & HYPER CAR',
     location: 'CIRCUIT',
     image: require('../../assets/prog-parade.jpg'),
@@ -32,6 +39,7 @@ const PROGRAM: ProgramItem[] = [
     ],
   },
   {
+    id: 'drift',
     title: 'SHOW DRIFT',
     location: 'PADDOCK DRIFT',
     image: require('../../assets/prog-drift.jpg'),
@@ -46,6 +54,7 @@ const PROGRAM: ProgramItem[] = [
     ],
   },
   {
+    id: 'fmx',
     title: 'SHOW FMX',
     location: 'ZONE SHOW FMX',
     image: require('../../assets/prog-fmx.jpg'),
@@ -57,15 +66,18 @@ const PROGRAM: ProgramItem[] = [
     ],
   },
   {
+    id: 'dragster',
     title: 'SHOW DRAGSTER',
     location: 'PADDOCK DRIFT',
     image: require('../../assets/prog-dragster.jpg'),
+    imageAlign: 'right',
     events: [
       { times: '14H30', name: '' },
       { times: '16H00', name: '' },
     ],
   },
   {
+    id: 'pitwalk',
     title: 'PITWALK AND GRIDWALK',
     location: 'CIRCUIT',
     image: require('../../assets/prog-pitwalk.jpg'),
@@ -78,10 +90,19 @@ const PROGRAM: ProgramItem[] = [
 export default function ProgramScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+
+  const toggleFavorite = useCallback((id: string) => {
+    setFavorites((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
-      {/* Header noir */}
       <View style={[styles.header, { paddingTop: insets.top }]}>
         <View style={{ width: 76 }} />
         <Text style={styles.headerTitle}>Programme</Text>
@@ -96,9 +117,29 @@ export default function ProgramScreen() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        {PROGRAM.map((section, i) => (
-          <View key={i} style={styles.section}>
-            <Image source={section.image} style={styles.sectionImage} />
+        {PROGRAM.map((section) => (
+          <View key={section.id} style={styles.section}>
+            <View style={styles.imageWrap}>
+              <Image
+                source={section.image}
+                style={[
+                  styles.sectionImage,
+                  section.imageAlign === 'right' && { resizeMode: 'cover', transform: [{ translateX: -30 }] },
+                ]}
+                resizeMode="cover"
+              />
+              <TouchableOpacity
+                style={styles.heartBtn}
+                onPress={() => toggleFavorite(section.id)}
+                activeOpacity={0.7}
+              >
+                <Ionicons
+                  name={favorites.has(section.id) ? 'heart' : 'heart-outline'}
+                  size={20}
+                  color={favorites.has(section.id) ? COLORS.primary : COLORS.textMuted}
+                />
+              </TouchableOpacity>
+            </View>
             <View style={styles.sectionContent}>
               <Text style={styles.sectionTitle}>{section.title}</Text>
               <Text style={styles.sectionLocation}>{section.location}</Text>
@@ -147,10 +188,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: SPACING.xxl,
   },
-  sectionImage: {
+  imageWrap: {
     width: 140,
     height: 160,
     borderRadius: 4,
+    overflow: 'hidden',
+  },
+  sectionImage: {
+    width: '100%',
+    height: '100%',
+  },
+  heartBtn: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'rgba(255,255,255,0.85)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sectionContent: {
     flex: 1,
