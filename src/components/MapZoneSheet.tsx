@@ -43,8 +43,8 @@ export default function MapZoneSheet({ zone, onClose }: Props) {
 
       {/* Header */}
       <View style={styles.header}>
-        <View style={[styles.typeTag, { backgroundColor: zone.color + '18' }]}>
-          <Text style={[styles.typeText, { color: zone.color }]}>{TYPE_LABELS[zone.type]}</Text>
+        <View style={styles.typeTag}>
+          <Text style={styles.typeText}>{TYPE_LABELS[zone.type]}</Text>
         </View>
         <TouchableOpacity onPress={onClose} hitSlop={12} style={styles.closeBtn}>
           <Ionicons name="close" size={20} color={COLORS.textMuted} />
@@ -61,7 +61,7 @@ export default function MapZoneSheet({ zone, onClose }: Props) {
       >
         {zone.details.map((detail, i) => (
           <View key={i} style={styles.detailRow}>
-            <View style={[styles.detailDot, { backgroundColor: zone.color }]} />
+            <View style={styles.detailDot} />
             <Text style={styles.detailText}>{detail}</Text>
           </View>
         ))}
@@ -129,13 +129,15 @@ const styles = StyleSheet.create({
   typeTag: {
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 8,
+    borderRadius: 6,
+    backgroundColor: '#111',
   },
   typeText: {
     fontSize: FONT_SIZES.xs,
     fontWeight: '800',
     letterSpacing: 0.5,
     textTransform: 'uppercase',
+    color: '#FFF',
   },
   closeBtn: {
     width: 32,
@@ -170,6 +172,7 @@ const styles = StyleSheet.create({
     height: 6,
     borderRadius: 3,
     marginTop: 5,
+    backgroundColor: '#111',
   },
   detailText: {
     flex: 1,
