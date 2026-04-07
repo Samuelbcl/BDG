@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -82,6 +82,7 @@ interface SearchItem {
   icon: keyof typeof Ionicons.glyphMap;
   color: string;
   searchText: string;
+  tab: string;
 }
 
 function buildSearchItems(): SearchItem[] {
@@ -97,6 +98,7 @@ function buildSearchItems(): SearchItem[] {
       icon: 'calendar',
       color: s.tagColor,
       searchText: `${s.title} ${s.description} ${s.tag} ${s.zone || ''}`,
+      tab: '/program',
     });
   }
 
@@ -110,6 +112,7 @@ function buildSearchItems(): SearchItem[] {
       icon: 'location',
       color: z.color,
       searchText: `${z.name} ${z.description} ${z.info}`,
+      tab: '/map',
     });
   }
 
@@ -123,6 +126,7 @@ function buildSearchItems(): SearchItem[] {
       icon: cz.type === 'service' ? 'storefront' : cz.type === 'paddock' ? 'car-sport' : 'flag',
       color: cz.color,
       searchText: `${cz.name} ${cz.description} ${cz.details.join(' ')} ${(cz.stands || []).join(' ')} ${(cz.cars || []).join(' ')}`,
+      tab: '/map',
     });
   }
 
@@ -136,6 +140,7 @@ function buildSearchItems(): SearchItem[] {
       icon: 'speedometer',
       color: COLORS.zoneBapteme,
       searchText: `${b.carModel} ${b.provider} ${b.description} bapteme`,
+      tab: '/program',
     });
   }
 
@@ -166,8 +171,13 @@ export default function SearchScreen() {
       .map((r) => r.item);
   }, [query]);
 
+  const handleResultPress = useCallback((item: SearchItem) => {
+    router.back();
+    setTimeout(() => router.push(item.tab as any), 100);
+  }, [router]);
+
   const renderItem = ({ item }: { item: SearchItem }) => (
-    <TouchableOpacity style={styles.resultCard} activeOpacity={0.7}>
+    <TouchableOpacity style={styles.resultCard} activeOpacity={0.7} onPress={() => handleResultPress(item)}>
       <View style={[styles.resultIcon, { backgroundColor: `${item.color}15` }]}>
         <Ionicons name={item.icon} size={20} color={item.color} />
       </View>
