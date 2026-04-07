@@ -124,7 +124,7 @@ export default function ProgramScreen() {
                 source={section.image}
                 style={[
                   styles.sectionImage,
-                  section.imageAlign === 'right' && { resizeMode: 'cover', transform: [{ translateX: -30 }] },
+                  section.imageAlign === 'right' && styles.imageRight,
                 ]}
                 resizeMode="cover"
               />
@@ -197,6 +197,13 @@ const styles = StyleSheet.create({
   sectionImage: {
     width: '100%',
     height: '100%',
+  },
+  imageRight: {
+    width: 200,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
   heartBtn: {
     position: 'absolute',
