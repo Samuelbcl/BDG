@@ -8,7 +8,7 @@ import { COLORS, SPACING, RADIUS, FONT_SIZES, EVENT } from '../../src/constants/
 import { useAppStore } from '../../src/utils/store';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
-const VIDEO_HEIGHT = 420;
+const VIDEO_HEIGHT = 350;
 const EVENT_DATE = new Date('2026-04-05T09:00:00+02:00');
 const TICKET_URL = 'https://lesbruleursdegommes.com/billetterie/';
 
