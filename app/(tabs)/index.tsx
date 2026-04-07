@@ -267,8 +267,9 @@ const styles = StyleSheet.create({
   // Play/Pause
   playPauseBtn: {
     position: 'absolute',
-    bottom: 80,
+    bottom: 10,
     right: 12,
+    zIndex: 10,
     width: 32,
     height: 32,
     borderRadius: 16,
