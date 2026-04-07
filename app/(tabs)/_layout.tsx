@@ -52,7 +52,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="map"
         options={{
-          title: 'Carte',
+          title: 'Plan',
           tabBarIcon: ({ color, focused }) => (
             <TabIcon name="map" color={color} focused={focused} />
           ),
