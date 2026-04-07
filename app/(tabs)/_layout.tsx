@@ -1,6 +1,9 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
 import { COLORS } from '../../src/constants/theme';
+
+const SITE_URL = 'https://lesbruleursdegommes.com/';
 
 type TabIconName = 'actus' | 'map' | 'calendar' | 'info' | 'menu';
 
@@ -69,6 +72,14 @@ export default function TabsLayout() {
       />
       <Tabs.Screen
         name="info"
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            WebBrowser.openBrowserAsync(SITE_URL, {
+              presentationStyle: WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+            });
+          },
+        }}
         options={{
           title: 'Info',
           tabBarIcon: ({ color }) => (
