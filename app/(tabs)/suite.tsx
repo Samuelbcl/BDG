@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Switch, Linking } from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { COLORS, SPACING, RADIUS, FONT_SIZES } from '../../src/constants/theme';
-import Header from '../../src/components/Header';
+import { COLORS, SPACING, FONT_SIZES } from '../../src/constants/theme';
 
 const PARTNERS = [
   { name: 'AF MotorSport', role: 'Baptemes sur circuit' },
@@ -16,16 +16,24 @@ const PARTNERS = [
 type Section = null | 'partners' | 'settings';
 
 export default function SuiteScreen() {
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
   const [openSection, setOpenSection] = useState<Section>(null);
   const [notifs, setNotifs] = useState(true);
   const [location, setLocation] = useState(true);
 
   return (
     <View style={styles.container}>
-      <Header />
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.pageTitle}>SUITE</Text>
+      {/* Header noir */}
+      <View style={[styles.header, { paddingTop: insets.top }]}>
+        <View style={{ width: 36 }} />
+        <Text style={styles.headerTitle}>Suite</Text>
+        <TouchableOpacity style={styles.headerBtn} onPress={() => router.push('/search')}>
+          <Ionicons name="search-outline" size={22} color="#FFF" />
+        </TouchableOpacity>
+      </View>
 
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Ton Compte */}
         <TouchableOpacity style={styles.menuItem} activeOpacity={0.7}>
           <Ionicons name="person-outline" size={22} color={COLORS.text} />
@@ -85,8 +93,8 @@ export default function SuiteScreen() {
               <Switch
                 value={notifs}
                 onValueChange={setNotifs}
-                trackColor={{ false: COLORS.border, true: `${COLORS.primary}66` }}
-                thumbColor={notifs ? COLORS.primary : COLORS.textMuted}
+                trackColor={{ false: COLORS.border, true: '#111' }}
+                thumbColor="#FFF"
               />
             </View>
             <View style={styles.settingRow}>
@@ -94,8 +102,8 @@ export default function SuiteScreen() {
               <Switch
                 value={location}
                 onValueChange={setLocation}
-                trackColor={{ false: COLORS.border, true: `${COLORS.primary}66` }}
-                thumbColor={location ? COLORS.primary : COLORS.textMuted}
+                trackColor={{ false: COLORS.border, true: '#111' }}
+                thumbColor="#FFF"
               />
             </View>
             <TouchableOpacity style={styles.settingLink} onPress={() => Linking.openURL('https://lesbruleursdegommes.com/')}>
@@ -108,7 +116,7 @@ export default function SuiteScreen() {
         {/* Version */}
         <View style={styles.versionBox}>
           <Text style={styles.versionText}>BDG Motor Show v1.0.0</Text>
-          <Text style={styles.versionSub}>Les Bruleurs de Gommes - 10e edition</Text>
+          <Text style={styles.versionSub}>Les Bruleurs de Gommes</Text>
         </View>
       </ScrollView>
     </View>
@@ -117,9 +125,19 @@ export default function SuiteScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
-  scrollContent: { padding: SPACING.base, paddingBottom: 120 },
 
-  pageTitle: { fontSize: 28, fontWeight: '900', color: COLORS.text, letterSpacing: 1, marginBottom: SPACING.xl },
+  header: {
+    backgroundColor: '#000',
+    paddingHorizontal: SPACING.base,
+    paddingBottom: 6,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+  },
+  headerBtn: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
+  headerTitle: { fontSize: 18, fontWeight: '800', color: '#FFF', letterSpacing: 1, marginBottom: 6 },
+
+  scrollContent: { padding: SPACING.base, paddingBottom: 40 },
 
   menuItem: {
     flexDirection: 'row',
@@ -130,20 +148,12 @@ const styles = StyleSheet.create({
   menuLabel: { fontSize: FONT_SIZES.lg, fontWeight: '800', color: COLORS.text, letterSpacing: 0.5 },
   divider: { height: 1, backgroundColor: COLORS.border },
 
-  expandedSection: {
-    paddingLeft: 36,
-    paddingBottom: SPACING.md,
-  },
+  expandedSection: { paddingLeft: 36, paddingBottom: SPACING.md },
   partnerRow: { marginBottom: 10 },
   partnerName: { fontSize: FONT_SIZES.lg, fontWeight: '600', color: COLORS.text },
   partnerRole: { fontSize: FONT_SIZES.md, color: COLORS.textMuted },
 
-  settingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
+  settingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 },
   settingLabel: { fontSize: FONT_SIZES.lg, fontWeight: '600', color: COLORS.text },
   settingLink: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 8 },
   settingLinkText: { fontSize: FONT_SIZES.base, color: COLORS.textSecondary },
