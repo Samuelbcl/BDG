@@ -9,8 +9,8 @@ const PROGRAM = [
     title: 'TRACK DAY',
     location: 'CIRCUIT',
     events: [
-      { times: '9H - 12H', name: 'Session 1' },
-      { times: '13H - 17H', name: 'Session 2' },
+      { times: '9H - 12H', name: '' },
+      { times: '13H - 17H', name: '' },
     ],
   },
   {
