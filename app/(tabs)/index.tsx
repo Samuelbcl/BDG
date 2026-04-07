@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet, Dimensions, Linking, Animated, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, ImageBackground, StyleSheet, Dimensions, Linking, Animated, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 import { Video, ResizeMode } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -12,13 +12,28 @@ const VIDEO_HEIGHT = 350;
 const EVENT_DATE = new Date('2027-03-28T09:00:00+02:00');
 const TICKET_URL = 'https://lesbruleursdegommes.com/billetterie/';
 
-const FEATURES = [
-  { icon: 'car-sport-outline' as const, title: 'EXPOSITION', desc: 'Exposition dans les Paddocks du Circuit F1 de Spa Francorchamps, reservee aux Sportives, SuperCars et HyperCars.' },
-  { icon: 'flag-outline' as const, title: 'TRACK DAY', desc: 'Un TrackDay sur le plus beau Circuit F1 du Monde de 9H00 a 18H00.' },
-  { icon: 'cog-outline' as const, title: 'STANDS PRO', desc: 'Des Dizaines de Stands Professionnels avec Produits, Pieces Performances et Conseils.' },
-  { icon: 'speedometer-outline' as const, title: 'BAPTEMES', desc: 'Baptemes en Passager de Voitures de Courses : LMP2, Porsche 991 GT3 CUP, et Sportives Classiques.' },
-  { icon: 'car-outline' as const, title: 'MEETING RWB', desc: 'RWB European Meeting' },
-  { icon: 'flame-outline' as const, title: 'SHOW DRIFT', desc: 'Show Drift' },
+const NEWS_ITEMS = [
+  {
+    id: '1',
+    date: '15 Mars 2027',
+    title: 'La liste des Hypercars confirmees',
+    body: 'Bugatti Chiron, Pagani Huayra, Koenigsegg Jesko... Plus de 20 hypercars au paddock.',
+    image: require('../../assets/prog-parade.jpg'),
+  },
+  {
+    id: '2',
+    date: '01 Mars 2027',
+    title: 'Show Drift : le lineup devoile',
+    body: 'Raul, Soul et les meilleurs drifteurs europeens confirmes pour la 11e edition.',
+    image: require('../../assets/prog-drift.jpg'),
+  },
+  {
+    id: '3',
+    date: '15 Fev 2027',
+    title: 'Billets en vente',
+    body: 'Les billets pour le BDG Motor Show 2027 sont disponibles. Reservez vite !',
+    image: require('../../assets/prog-trackday.jpg'),
+  },
 ];
 
 const SOCIALS = [
@@ -73,12 +88,12 @@ export default function ActusScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Fixed header background + logo - appears on scroll */}
+      {/* Fixed header bg + logo */}
       <Animated.View style={[styles.fixedHeaderBg, { paddingTop: insets.top - 7, opacity: headerOpacity }]}>
         <Image source={require('../../assets/logo bdg.png')} style={styles.fixedLogo} resizeMode="contain" />
       </Animated.View>
 
-      {/* Fixed icons - always visible */}
+      {/* Fixed icons */}
       <View style={[styles.fixedIcons, { paddingTop: insets.top + 5 }]}>
         <TouchableOpacity style={styles.fixedHeaderBtn} onPress={() => router.push('/notifications')}>
           <Ionicons name="notifications-outline" size={22} color={showHeader ? COLORS.text : '#FFF'} />
@@ -113,22 +128,36 @@ export default function ActusScreen() {
           />
           <View style={styles.videoOverlay} />
 
-          {/* Play/Pause button */}
+          {/* Play/Pause */}
           <TouchableOpacity
             style={styles.playPauseBtn}
             onPress={() => {
-              if (isPlaying) {
-                videoRef.current?.pauseAsync();
-              } else {
-                videoRef.current?.playAsync();
-              }
+              if (isPlaying) videoRef.current?.pauseAsync();
+              else videoRef.current?.playAsync();
               setIsPlaying(!isPlaying);
             }}
             activeOpacity={0.7}
           >
-            <Ionicons name={isPlaying ? 'pause' : 'play'} size={16} color="#FFF" />
+            <Ionicons name={isPlaying ? 'pause' : 'play'} size={14} color="#FFF" />
           </TouchableOpacity>
 
+          {/* Stats on video */}
+          <View style={styles.statsOverlay}>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>1000+</Text>
+              <Text style={styles.statLabel}>Voitures</Text>
+            </View>
+            <View style={styles.statDivider} />
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>75+</Text>
+              <Text style={styles.statLabel}>Stands</Text>
+            </View>
+            <View style={styles.statDivider} />
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>20000+</Text>
+              <Text style={styles.statLabel}>Visiteurs</Text>
+            </View>
+          </View>
         </View>
 
         {/* Countdown */}
@@ -164,54 +193,41 @@ export default function ActusScreen() {
           )}
         </View>
 
-        {/* CTA Billetterie */}
+        {/* CTA Billetterie - full width */}
         <TouchableOpacity style={styles.ctaCard} onPress={() => Linking.openURL(TICKET_URL)} activeOpacity={0.8}>
-          <Image source={require('../../assets/ticket-cta.jpg')} style={styles.ctaImage} />
-          <View style={styles.ctaContent}>
+          <ImageBackground source={require('../../assets/ticket-cta.jpg')} style={styles.ctaBg} imageStyle={styles.ctaBgImage}>
+            <View style={styles.ctaOverlay} />
             <Text style={styles.ctaTitle}>CHOPPE TON TICKET !</Text>
-            <Text style={styles.ctaSub}>La 10e edition ca se fete !</Text>
+            <Text style={styles.ctaSub}>La 11e edition - ca va etre enorme</Text>
             <View style={styles.ctaLink}>
-              <Ionicons name="time-outline" size={14} color={COLORS.textSecondary} />
-              <Text style={styles.ctaLinkText}>PAR ICI !</Text>
+              <Text style={styles.ctaLinkText}>PAR ICI</Text>
+              <Ionicons name="arrow-forward" size={16} color="#FFF" />
             </View>
-          </View>
+          </ImageBackground>
         </TouchableOpacity>
 
-        {/* Stats */}
-        <View style={styles.statsRow}>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>1000+</Text>
-            <Text style={styles.statLabel}>Voitures sportives</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>75+</Text>
-            <Text style={styles.statLabel}>Stands professionnels</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>20000+</Text>
-            <Text style={styles.statLabel}>Visiteurs</Text>
-          </View>
-        </View>
-
-        {/* Features Grid */}
-        <View style={styles.featuresGrid}>
-          {FEATURES.map((f, i) => (
-            <View key={i} style={styles.featureItem}>
-              <Ionicons name={f.icon} size={28} color={COLORS.textMuted} />
-              <Text style={styles.featureTitle}>{f.title}</Text>
-              <Text style={styles.featureDesc}>{f.desc}</Text>
+        {/* News */}
+        {NEWS_ITEMS.map((item) => (
+          <View key={item.id} style={styles.newsCard}>
+            <Image source={item.image} style={styles.newsImage} resizeMode="cover" />
+            <View style={styles.newsContent}>
+              <Text style={styles.newsDate}>{item.date}</Text>
+              <Text style={styles.newsTitle}>{item.title}</Text>
+              <Text style={styles.newsBody}>{item.body}</Text>
             </View>
-          ))}
-        </View>
+          </View>
+        ))}
 
         {/* Follow Us */}
-        <Text style={styles.followTitle}>FOLLOW US</Text>
-        <View style={styles.socialRow}>
-          {SOCIALS.map((s, i) => (
-            <TouchableOpacity key={i} style={styles.socialBtn} onPress={() => Linking.openURL(s.url)} activeOpacity={0.7}>
-              <Ionicons name={s.icon} size={22} color="#FFF" />
-            </TouchableOpacity>
-          ))}
+        <View style={styles.followSection}>
+          <Text style={styles.followTitle}>FOLLOW US</Text>
+          <View style={styles.socialRow}>
+            {SOCIALS.map((s, i) => (
+              <TouchableOpacity key={i} style={styles.socialBtn} onPress={() => Linking.openURL(s.url)} activeOpacity={0.7}>
+                <Ionicons name={s.icon} size={22} color="#FFF" />
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -222,12 +238,10 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
   scrollContent: { paddingBottom: 20 },
 
-  // Fixed header bg + logo (appears on scroll)
+  // Fixed header
   fixedHeaderBg: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
+    top: 0, left: 0, right: 0,
     zIndex: 99,
     alignItems: 'center',
     justifyContent: 'center',
@@ -237,67 +251,50 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.border,
   },
   fixedLogo: { height: 40, width: 150 },
-  // Fixed icons (always visible)
   fixedIcons: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
+    top: 0, left: 0, right: 0,
     zIndex: 101,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.base,
     paddingBottom: 4,
   },
-  fixedHeaderBtn: {
-    width: 36,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fixedBadge: {
-    position: 'absolute',
-    top: 4,
-    right: 4,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: COLORS.primary,
-  },
+  fixedHeaderBtn: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
+  fixedBadge: { position: 'absolute', top: 4, right: 4, width: 8, height: 8, borderRadius: 4, backgroundColor: COLORS.primary },
 
-  // Video hero
+  // Video
   videoContainer: { width: SCREEN_WIDTH, height: VIDEO_HEIGHT, backgroundColor: '#000' },
   video: { width: '100%', height: '100%' },
-  videoOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.25)' },
-
-  // Play/Pause
+  videoOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.2)' },
   playPauseBtn: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 52,
     right: 12,
     zIndex: 10,
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: 'rgba(0,0,0,0.4)',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  // Stats row
-  statsRow: {
+  // Stats on video
+  statsOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0, right: 0,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginHorizontal: SPACING.base,
-    marginTop: SPACING.base,
-    paddingVertical: SPACING.base,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    backgroundColor: 'rgba(0,0,0,0.55)',
   },
-  statItem: { alignItems: 'center' },
-  statNumber: { fontSize: 20, fontWeight: '900', color: COLORS.text },
-  statLabel: { fontSize: 9, color: COLORS.textMuted, fontWeight: '500', textAlign: 'center', maxWidth: 100, marginTop: 2 },
+  statItem: { alignItems: 'center', flex: 1 },
+  statDivider: { width: 1, height: 24, backgroundColor: 'rgba(255,255,255,0.2)' },
+  statNumber: { fontSize: 18, fontWeight: '900', color: '#FFF' },
+  statLabel: { fontSize: 9, color: 'rgba(255,255,255,0.6)', fontWeight: '500', marginTop: 1 },
 
   // Countdown
   countdownCard: {
@@ -312,7 +309,7 @@ const styles = StyleSheet.create({
   countdownRow: { flexDirection: 'row', alignItems: 'center' },
   countdownBlock: { alignItems: 'center', minWidth: 60 },
   countdownNumber: { fontSize: 40, fontWeight: '200', color: '#FFF', fontVariant: ['tabular-nums'], letterSpacing: -1 },
-  countdownUnit: { fontSize: 8, fontWeight: '600', color: 'rgba(255,255,255,0.4)', letterSpacing: 2, marginTop: 4, textTransform: 'uppercase' },
+  countdownUnit: { fontSize: 8, fontWeight: '600', color: 'rgba(255,255,255,0.4)', letterSpacing: 2, marginTop: 4 },
   countdownSep: { fontSize: 30, fontWeight: '200', color: 'rgba(255,255,255,0.3)', marginHorizontal: 4, marginBottom: 14 },
   liveRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   liveDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: COLORS.primary },
@@ -320,65 +317,69 @@ const styles = StyleSheet.create({
 
   // CTA
   ctaCard: {
-    flexDirection: 'row',
-    backgroundColor: COLORS.card,
     marginHorizontal: SPACING.base,
     marginTop: SPACING.base,
-    borderRadius: RADIUS.sm,
+    borderRadius: 12,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: COLORS.border,
   },
-  ctaImage: { width: 120, height: 120 },
-  ctaContent: { flex: 1, padding: SPACING.base, justifyContent: 'center' },
-  ctaTitle: { fontSize: FONT_SIZES.xl, fontWeight: '900', color: COLORS.text },
-  ctaSub: { fontSize: FONT_SIZES.md, color: COLORS.textSecondary, marginTop: 2 },
+  ctaBg: {
+    width: '100%',
+    height: 180,
+    justifyContent: 'flex-end',
+    padding: SPACING.xl,
+  },
+  ctaBgImage: { borderRadius: 12 },
+  ctaOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    borderRadius: 12,
+  },
+  ctaTitle: { fontSize: 22, fontWeight: '900', color: '#FFF', letterSpacing: 0.5 },
+  ctaSub: { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 4 },
   ctaLink: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
     marginTop: SPACING.md,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-    paddingTop: SPACING.sm,
   },
-  ctaLinkText: { fontSize: FONT_SIZES.base, fontWeight: '700', color: COLORS.text },
+  ctaLinkText: { fontSize: 13, fontWeight: '800', color: '#FFF', letterSpacing: 0.5 },
 
-  // Features grid
-  featuresGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: SPACING.base,
-    marginTop: SPACING.xl,
+  // News
+  newsCard: {
+    marginHorizontal: SPACING.base,
+    marginTop: SPACING.base,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: COLORS.card,
+    borderWidth: 1,
+    borderColor: COLORS.border,
   },
-  featureItem: {
-    width: '50%',
-    alignItems: 'center',
-    paddingHorizontal: SPACING.md,
-    marginBottom: SPACING.xxl,
+  newsImage: {
+    width: '100%',
+    height: 180,
   },
-  featureTitle: {
-    fontSize: FONT_SIZES.xl,
-    fontWeight: '800',
-    color: COLORS.text,
-    marginTop: SPACING.sm,
-    marginBottom: 4,
-    textAlign: 'center',
+  newsContent: {
+    padding: SPACING.base,
   },
-  featureDesc: {
-    fontSize: FONT_SIZES.xs,
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    lineHeight: 15,
-  },
+  newsDate: { fontSize: 11, color: COLORS.textMuted, fontWeight: '600', marginBottom: 4 },
+  newsTitle: { fontSize: 16, fontWeight: '900', color: COLORS.text, marginBottom: 4 },
+  newsBody: { fontSize: 12, color: COLORS.textSecondary, lineHeight: 17 },
 
   // Follow
-  followTitle: { fontSize: FONT_SIZES.xl, fontWeight: '900', color: COLORS.text, marginLeft: SPACING.base, marginBottom: SPACING.md },
-  socialRow: { flexDirection: 'row', gap: 12, paddingHorizontal: SPACING.base, marginBottom: SPACING.base },
+  followSection: {
+    marginTop: SPACING.xxl,
+    paddingTop: SPACING.xl,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    marginHorizontal: SPACING.base,
+    marginBottom: SPACING.base,
+  },
+  followTitle: { fontSize: 14, fontWeight: '900', color: COLORS.text, letterSpacing: 1, marginBottom: SPACING.md },
+  socialRow: { flexDirection: 'row', gap: 12 },
   socialBtn: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: '#111',
     alignItems: 'center',
     justifyContent: 'center',
