@@ -159,6 +159,13 @@ export default function ProgramScreen() {
       </Modal>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+        {showFavOnly && displayedProgram.length === 0 && (
+          <View style={styles.emptyFav}>
+            <Ionicons name="heart-outline" size={48} color={COLORS.textMuted} />
+            <Text style={styles.emptyFavText}>Aucun favori selectionne</Text>
+            <Text style={styles.emptyFavSub}>Appuyez sur le coeur d'un evenement pour l'ajouter</Text>
+          </View>
+        )}
         {displayedProgram.map((section) => (
           <View key={section.id} style={styles.section}>
             <View style={styles.imageWrap}>
@@ -289,4 +296,9 @@ const styles = StyleSheet.create({
   filterDivider: { height: 1, backgroundColor: COLORS.border, marginTop: SPACING.md },
   saveBtn: { backgroundColor: '#000', borderRadius: 8, paddingVertical: 16, alignItems: 'center', marginBottom: SPACING.base },
   saveBtnText: { fontSize: 15, fontWeight: '900', color: '#FFF', letterSpacing: 1 },
+
+  // Empty favorites
+  emptyFav: { alignItems: 'center', justifyContent: 'center', paddingTop: 80 },
+  emptyFavText: { fontSize: 16, fontWeight: '700', color: COLORS.textSecondary, marginTop: SPACING.md },
+  emptyFavSub: { fontSize: 13, color: COLORS.textMuted, marginTop: 4, textAlign: 'center' },
 });
