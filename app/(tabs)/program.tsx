@@ -68,7 +68,7 @@ export default function ProgramScreen() {
     <View style={styles.container}>
       {/* Header noir */}
       <View style={[styles.header, { paddingTop: insets.top }]}>
-        <View style={{ width: 36 }} />
+        <View style={{ width: 76 }} />
         <Text style={styles.headerTitle}>Programme</Text>
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.headerBtn} onPress={() => {}}>
