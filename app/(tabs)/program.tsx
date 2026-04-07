@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, ImageSourcePropType, Modal, Switch, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -91,6 +91,8 @@ export default function ProgramScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [showFavOnly, setShowFavOnly] = useState(false);
 
   const toggleFavorite = useCallback((id: string) => {
     setFavorites((prev) => {
@@ -101,13 +103,17 @@ export default function ProgramScreen() {
     });
   }, []);
 
+  const displayedProgram = showFavOnly
+    ? PROGRAM.filter((s) => favorites.has(s.id))
+    : PROGRAM;
+
   return (
     <View style={styles.container}>
       <View style={[styles.header, { paddingTop: insets.top }]}>
         <View style={{ width: 76 }} />
         <Text style={styles.headerTitle}>Programme</Text>
         <View style={styles.headerRight}>
-          <TouchableOpacity style={styles.headerBtn} onPress={() => {}}>
+          <TouchableOpacity style={styles.headerBtn} onPress={() => setFilterOpen(true)}>
             <Ionicons name="options-outline" size={22} color="#FFF" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerBtn} onPress={() => router.push('/search')}>
@@ -116,8 +122,44 @@ export default function ProgramScreen() {
         </View>
       </View>
 
+      {/* Filter modal */}
+      <Modal visible={filterOpen} transparent animationType="slide">
+        <View style={styles.modalOverlay}>
+          <View style={styles.filterPanel}>
+            <View style={styles.filterHandle} />
+            <View style={styles.filterHeader}>
+              <Text style={styles.filterTitle}>FILTRE</Text>
+              <TouchableOpacity onPress={() => { setShowFavOnly(false); setFilterOpen(false); }}>
+                <Text style={styles.filterClear}>EFFACER TOUT</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.filterRow}>
+              <View>
+                <Text style={styles.filterLabel}>FAVORIS</Text>
+                <Text style={styles.filterDesc}>Afficher uniquement vos favoris</Text>
+              </View>
+              <Switch
+                value={showFavOnly}
+                onValueChange={setShowFavOnly}
+                trackColor={{ false: COLORS.border, true: '#111' }}
+                thumbColor="#FFF"
+              />
+            </View>
+
+            <View style={styles.filterDivider} />
+
+            <View style={{ flex: 1 }} />
+
+            <TouchableOpacity style={styles.saveBtn} onPress={() => setFilterOpen(false)} activeOpacity={0.8}>
+              <Text style={styles.saveBtnText}>SAUVEGARDER</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        {PROGRAM.map((section) => (
+        {displayedProgram.map((section) => (
           <View key={section.id} style={styles.section}>
             <View style={styles.imageWrap}>
               <Image
@@ -226,4 +268,25 @@ const styles = StyleSheet.create({
   divider: { height: 1, backgroundColor: COLORS.textMuted, marginTop: SPACING.sm, marginBottom: SPACING.sm },
   eventTime: { fontSize: FONT_SIZES.base, fontWeight: '600', color: COLORS.text, marginBottom: 3, lineHeight: 20 },
   extraLabel: { fontSize: 10, fontWeight: '800', color: COLORS.text, marginTop: SPACING.sm, marginBottom: 3, letterSpacing: 0.3 },
+
+  // Filter modal
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'flex-end' },
+  filterPanel: {
+    backgroundColor: COLORS.surface,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    paddingHorizontal: SPACING.xl,
+    paddingBottom: Platform.OS === 'ios' ? 40 : SPACING.xl,
+    height: '85%',
+  },
+  filterHandle: { alignSelf: 'center', width: 40, height: 4, borderRadius: 2, backgroundColor: COLORS.textMuted, marginTop: 10, marginBottom: SPACING.base },
+  filterHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.xl },
+  filterTitle: { fontSize: 18, fontWeight: '900', color: COLORS.text, letterSpacing: 1 },
+  filterClear: { fontSize: 13, fontWeight: '700', color: COLORS.primary, letterSpacing: 0.5 },
+  filterRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: SPACING.md },
+  filterLabel: { fontSize: 15, fontWeight: '900', color: COLORS.text },
+  filterDesc: { fontSize: 13, color: COLORS.textSecondary, marginTop: 2 },
+  filterDivider: { height: 1, backgroundColor: COLORS.border, marginTop: SPACING.md },
+  saveBtn: { backgroundColor: '#000', borderRadius: 8, paddingVertical: 16, alignItems: 'center', marginBottom: SPACING.base },
+  saveBtnText: { fontSize: 15, fontWeight: '900', color: '#FFF', letterSpacing: 1 },
 });
