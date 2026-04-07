@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
   // Buttons
   filterBtn: {
     position: 'absolute',
-    top: 16,
+    top: 60,
     right: SPACING.base,
     width: 40,
     height: 40,
