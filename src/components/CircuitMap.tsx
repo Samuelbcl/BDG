@@ -109,7 +109,7 @@ function ZoneDetailModal({ zone, visible, onClose }: ZoneDetailModalProps) {
     paddock: 'Paddock',
     service: 'Services',
     grandstand: 'Tribune / VIP',
-    entrance: 'Entree',
+    entrance: 'Entrée',
     show: 'Show',
   }[zone.type];
 

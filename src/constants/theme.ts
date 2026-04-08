@@ -1,4 +1,4 @@
-// BDG Motor Show - Les Bruleurs de Gommes
+// BDG Motor Show - Les Brûleurs de Gommes
 // Light theme - Rouge racing / Blanc / Noir
 
 export const COLORS = {

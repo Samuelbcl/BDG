@@ -40,15 +40,15 @@ const DEMO_NOTIFICATIONS: AppNotification[] = [
   {
     id: 'demo-1',
     title: 'Bienvenue au BDG Motor Show !',
-    body: "Retrouvez toutes les infos de l'evenement dans l'app. Activez les notifications pour ne rien manquer.",
+    body: "Retrouvez toutes les infos de l'événement dans l'app. Activez les notifications pour ne rien manquer.",
     type: 'info',
     timestamp: new Date(Date.now() - 3600000).toISOString(),
     read: false,
   },
   {
     id: 'demo-2',
-    title: 'Defile Hypercars a 11h',
-    body: 'Le defile de 50 hypercars dans les paddocks commence bientot. Rendez-vous au paddock principal !',
+    title: 'Défilé Hypercars a 11h',
+    body: 'Le défilé de 50 hypercars dans les paddocks commence bientot. Rendez-vous au paddock principal !',
     type: 'schedule',
     timestamp: new Date(Date.now() - 7200000).toISOString(),
     read: false,
@@ -56,7 +56,7 @@ const DEMO_NOTIFICATIONS: AppNotification[] = [
   {
     id: 'demo-3',
     title: 'Vote Best Car ouvert',
-    body: 'Les votes sont ouverts ! Elisez la plus belle voiture du BDG Motor Show 2026.',
+    body: 'Les votes sont ouverts ! Élisez la plus belle voiture du BDG Motor Show 2026.',
     type: 'vote',
     timestamp: new Date(Date.now() - 18000000).toISOString(),
     read: true,
@@ -64,7 +64,7 @@ const DEMO_NOTIFICATIONS: AppNotification[] = [
   {
     id: 'demo-4',
     title: 'Nouveaux baptemes disponibles',
-    body: 'Des creneaux supplementaires ont ete ajoutes pour le prototype LMP2. Reservez vite !',
+    body: 'Des créneaux supplémentaires ont été ajoutés pour le prototype LMP2. Réservez vite !',
     type: 'promo',
     timestamp: new Date(Date.now() - 86400000).toISOString(),
     read: true,

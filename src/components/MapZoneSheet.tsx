@@ -18,7 +18,7 @@ const TYPE_LABELS: Record<CircuitZone['type'], string> = {
   paddock: 'Paddock',
   service: 'Service',
   grandstand: 'Tribune',
-  entrance: 'Entree',
+  entrance: 'Entrée',
   show: 'Show',
 };
 

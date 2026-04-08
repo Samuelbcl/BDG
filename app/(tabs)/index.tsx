@@ -18,22 +18,22 @@ const NEWS_ITEMS = [
   {
     id: '1',
     date: '15 Mars 2027',
-    title: 'La liste des Hypercars confirmees',
+    title: 'La liste des Hypercars confirmées',
     body: 'Bugatti Chiron, Pagani Huayra, Koenigsegg Jesko... Plus de 20 hypercars au paddock.',
     image: require('../../assets/prog-parade.jpg'),
   },
   {
     id: '2',
     date: '01 Mars 2027',
-    title: 'Show Drift : le lineup devoile',
-    body: 'Raul, Soul et les meilleurs drifteurs europeens confirmes pour la 11e edition.',
+    title: 'Show Drift : le lineup dévoilé',
+    body: 'Raul, Soul et les meilleurs drifteurs européens confirmés pour la 11e édition.',
     image: require('../../assets/prog-drift.jpg'),
   },
   {
     id: '3',
     date: '15 Fev 2027',
     title: 'Billets en vente',
-    body: 'Les billets pour le BDG Motor Show 2027 sont disponibles. Reservez vite !',
+    body: 'Les billets pour le BDG Motor Show 2027 sont disponibles. Réservez vite !',
     image: require('../../assets/prog-trackday.jpg'),
   },
 ];
@@ -202,7 +202,7 @@ export default function ActusScreen() {
           <ImageBackground source={require('../../assets/ticket-cta.jpg')} style={styles.ctaBg} imageStyle={styles.ctaBgImage}>
             <View style={styles.ctaOverlay} />
             <Text style={styles.ctaTitle}>CHOPPE TON TICKET !</Text>
-            <Text style={styles.ctaSub}>La 11e edition - ca va etre enorme</Text>
+            <Text style={styles.ctaSub}>La 11e édition - ça va être énorme</Text>
             <View style={styles.ctaLink}>
               <Text style={styles.ctaLinkText}>PAR ICI</Text>
               <Ionicons name="arrow-forward" size={16} color="#FFF" />

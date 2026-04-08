@@ -175,8 +175,8 @@ export default function ProgramScreen() {
         {showFavOnly && displayedProgram.length === 0 && (
           <View style={styles.emptyFav}>
             <Ionicons name="heart-outline" size={48} color={COLORS.textMuted} />
-            <Text style={styles.emptyFavText}>Aucun favori selectionne</Text>
-            <Text style={styles.emptyFavSub}>Appuyez sur le coeur d'un evenement pour l'ajouter</Text>
+            <Text style={styles.emptyFavText}>Aucun favori sélectionné</Text>
+            <Text style={styles.emptyFavSub}>Appuyez sur le coeur d'un événement pour l'ajouter</Text>
           </View>
         )}
         {displayedProgram.map((section) => (

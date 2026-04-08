@@ -12,7 +12,7 @@ const PARTNERS = [
   { name: 'Motortech', role: 'Partenaire technique' },
   { name: 'K\'Mystik', role: 'Adrenaline Experience' },
   { name: 'Purefect', role: 'Detailing automobile' },
-  { name: 'Circuit de Spa-Francorchamps', role: 'Lieu de l\'evenement' },
+  { name: 'Circuit de Spa-Francorchamps', role: 'Lieu de l\'événement' },
 ];
 
 type Section = null | 'partners' | 'settings';
@@ -120,7 +120,7 @@ export default function SuiteScreen() {
         {/* Version */}
         <View style={styles.versionBox}>
           <Text style={styles.versionText}>BDG Motor Show v1.0.0</Text>
-          <Text style={styles.versionSub}>Les Bruleurs de Gommes</Text>
+          <Text style={styles.versionSub}>Les Brûleurs de Gommes</Text>
         </View>
       </ScrollView>
     </View>
